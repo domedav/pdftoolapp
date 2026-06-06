@@ -22,10 +22,10 @@ local.properties
 # OS specific
 .DS_Store
 Thumbs.db
-/gradle/wrapper/gradle-wrapper.jar
-/gradle/wrapper/gradle-wrapper.properties
-/gradlew
-/gradlew.bat
+# /gradle/wrapper/gradle-wrapper.jar
+# /gradle/wrapper/gradle-wrapper.properties
+# /gradlew
+# /gradlew.bat
 /app/release/app-arm64-v8a-release.apk
 /app/release/baselineProfiles/0/app-arm64-v8a-release.dm
 /app/release/baselineProfiles/1/app-arm64-v8a-release.dm
