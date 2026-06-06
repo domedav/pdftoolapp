@@ -100,7 +100,7 @@ def generate_promotional_gallery():
     wide_bg = generate_pattern_background(wide_w, wide_h)
     
     try:
-        ss1 = Image.open("assets/raw_1.png").convert("RGBA")
+        ss1 = Image.open("assets/raw_2.png").convert("RGBA")
         ss1 = ss1.resize((1080, 2160), Image.Resampling.LANCZOS)
     except:
         ss1 = Image.new('RGBA', (1080, 2160), (200, 200, 200, 255))
@@ -136,8 +136,8 @@ def generate_promotional_gallery():
         draw.text((x+4, y+4), text, font=font, fill=(255,255,255,150))
         draw.text(pos, text, font=font, fill=fill)
 
-    draw_text_with_shadow(draw, (150, wide_h - 350), "Private.", font=font)
-    draw_text_with_shadow(draw, (wide_w - 800, 150), "Powerful.", font=font)
+    draw_text_with_shadow(draw, (150, wide_h - 350), "Simple", font=font)
+    draw_text_with_shadow(draw, (wide_w - 800, 150), "      Fast", font=font)
     
     canvas.crop((0, 0, 1080, 1920)).convert("RGB").save(os.path.join(screenshot_dir, "1_panorama_left.png"))
     canvas.crop((1080, 0, 2160, 1920)).convert("RGB").save(os.path.join(screenshot_dir, "2_panorama_right.png"))
@@ -172,7 +172,7 @@ def generate_fastlane_icon():
 def generate_feature_graphic():
     bg = generate_pattern_background(1024, 500)
     try:
-        ss1 = Image.open("assets/raw_1.png").convert("RGBA")
+        ss1 = Image.open("assets/raw_2.png").convert("RGBA")
         ss_w, ss_h = 300, 600
         ss1 = ss1.resize((ss_w, ss_h), Image.Resampling.LANCZOS)
         frame_x, frame_y = 650, 100
@@ -197,7 +197,7 @@ def generate_feature_graphic():
         font = ImageFont.truetype(FONT_PATH, 70)
     except:
         font = ImageFont.load_default()
-    draw.text((100, 200), "Image to PDF Maker", font=font, fill=(40,40,50))
+    draw.text((100, 200), "Image to PDF", font=font, fill=(40,40,50))
     bg.convert("RGB").save(os.path.join(FASTLANE_DIR, "featureGraphic.png"))
     print("Feature graphic generated.")
 
