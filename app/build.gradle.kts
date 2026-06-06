@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.domedav.pdftool"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.domedav.pdftool"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 37
         versionCode = (project.findProperty("versionCode") as? String)?.toInt() ?: 1
         versionName = (project.findProperty("versionName") as? String) ?: "1.0"
         
@@ -36,7 +36,7 @@ android {
             isEnable = true
             reset()
             include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-            isUniversalApk = true
+            isUniversalApk = false
         }
     }
     
@@ -45,6 +45,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     
+    //noinspection WrongGradleMethod
     kotlin {
         jvmToolchain(21)
     }
@@ -52,6 +53,10 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    androidResources {
+        ignoreAssetsPattern = "!assets/*"
     }
 }
 
@@ -66,22 +71,17 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     
-    // Splash Screen (Android 12+)
+    // Splash Screen
     implementation(libs.androidx.core.splashscreen)
 
-    // Morph animációkhoz (Success képernyő)
+    // Morph animációkhoz
     implementation(libs.androidx.graphics.shapes)
 
-    // Képbetöltés (nélkülözhetetlen)
+    // Képbetöltés
     implementation(libs.coil.compose)
     
-    // Drag & Drop Grid (Ezt érdemes megtartani, mert kézzel megírni 100+ sor lenne)
+    // Drag & Drop Grid
     implementation(libs.reorderable)
-
-    // --- OPCIONÁLIS ---
-    // Ha találsz helyettesítő ikonokat a 'Core' csomagban (pl. Icons.Default.*),
-    // akkor ezt a sort törölheted a build idő drasztikus csökkentéséért:
-    implementation(libs.androidx.material.icons.extended)
 
     // DEBUG (Csak fejlesztés közben kell)
     debugImplementation(libs.androidx.ui.tooling)

@@ -1,13 +1,11 @@
 package com.domedav.pdftool
 
-import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -20,7 +18,6 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.*
@@ -28,26 +25,20 @@ import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.*
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
+import com.domedav.pdftool.util.AppIcons
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -59,7 +50,6 @@ import androidx.compose.ui.unit.*
 import androidx.compose.ui.zIndex
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import coil3.compose.AsyncImage
 import com.domedav.pdftool.ui.theme.PdfToolTheme
@@ -68,13 +58,9 @@ import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyGridState
 import androidx.graphics.shapes.*
 import java.io.File
-import java.io.FileOutputStream
 import java.util.UUID
-import kotlin.math.roundToInt
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.lifecycle.lifecycleScope
-import android.app.Application
 
 sealed class Screen {
     data object Main : Screen()
@@ -156,6 +142,7 @@ class MainActivity : ComponentActivity() {
     private fun clearState(context: Context) { context.getSharedPreferences("pdf_prefs", MODE_PRIVATE).edit().clear().apply() }
 }
 
+@SuppressLint("LocalContextGetResourceValueCall")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
@@ -232,12 +219,12 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                                     onPdfCreated(pdfFile)
                                 } catch (e: Exception) { 
                                     e.printStackTrace()
-                                    Toast.makeText(context, context.getString(R.string.error_conversion), Toast.LENGTH_SHORT).show() 
+                                    Toast.makeText(context, context.getString(R.string.error_conversion), Toast.LENGTH_SHORT).show()
                                 } finally { isLoading = false }
                             }
                         }
                     },
-                    icon = Icons.Default.PictureAsPdf,
+                    icon = AppIcons.PictureAsPdf(),
                     label = stringResource(R.string.convert_to_pdf)
                 )
             }
@@ -281,17 +268,17 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                 }
                 
                 item {
-                    StepHeader(stringResource(R.string.step_label_1), Icons.Default.AddPhotoAlternate)
+                    StepHeader(stringResource(R.string.step_label_1), AppIcons.AddPhotoAlternate())
                     ConnectedActionButtons(
                         leftLabel = stringResource(R.string.select_images),
-                        leftIcon = Icons.Default.PhotoLibrary,
+                        leftIcon = AppIcons.PhotoLibrary(),
                         leftColor = MaterialTheme.colorScheme.primaryContainer,
                         onLeftClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             pickMultipleLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                         },
                         rightLabel = stringResource(R.string.take_photo),
-                        rightIcon = Icons.Default.CameraAlt,
+                        rightIcon = AppIcons.CameraAlt(),
                         rightColor = MaterialTheme.colorScheme.tertiaryContainer,
                         onRightClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -311,13 +298,13 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                     if (selectedImages.isNotEmpty()) {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             Spacer(Modifier.height(24.dp))
-                            StepHeader(stringResource(R.string.step_label_2), Icons.Default.LowPriority)
+                            StepHeader(stringResource(R.string.step_label_2), AppIcons.LowPriority())
                             ReorderableImageGrid(selectedImages, onRemove = { i -> haptic.performHapticFeedback(HapticFeedbackType.LongPress); selectedImages = selectedImages.filterIndexed { idx, _ -> idx != i } }, onReorder = { from, to ->
                                 selectedImages = selectedImages.toMutableList().apply { add(to, removeAt(from)) }
                             })
 
                             Spacer(Modifier.height(16.dp))
-                            StepHeader(stringResource(R.string.step_label_3), Icons.Default.HighQuality)
+                            StepHeader(stringResource(R.string.step_label_3), AppIcons.HighQuality())
                             QualityPicker(selectedQualityIndex) { haptic.performHapticFeedback(HapticFeedbackType.LongPress); selectedQualityIndex = it }
                         }
                     } else {
@@ -370,7 +357,7 @@ fun DynamicUsageGuide(progress: Float, modifier: Modifier = Modifier) {
                         .graphicsLayer { translationY = -20f * progress }
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Info, null, tint = MaterialTheme.colorScheme.primary)
+                        Icon(AppIcons.Info(), null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(Modifier.width(8.dp))
                         Text(stringResource(R.string.usage_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     }
@@ -393,9 +380,9 @@ fun DynamicUsageGuide(progress: Float, modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.CenterVertically, // Így középre kerül vertikálisan
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    listOf(Icons.Default.AddPhotoAlternate, Icons.Default.LowPriority, Icons.Default.HighQuality, Icons.Default.PictureAsPdf).forEachIndexed { i, icon ->
+                    listOf(AppIcons.AddPhotoAlternate(), AppIcons.LowPriority(), AppIcons.HighQuality(), AppIcons.PictureAsPdf()).forEachIndexed { i, icon ->
                         Icon(icon, null, modifier = Modifier.size(24.dp), tint = MaterialTheme.colorScheme.primary)
-                        if (i < 3) Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.outlineVariant)
+                        if (i < 3) Icon(AppIcons.ChevronRight(), null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.outlineVariant)
                     }
                 }
             }
@@ -461,7 +448,7 @@ fun ReorderableImageGrid(images: List<SelectedImage>, onRemove: (Int) -> Unit, o
                         AsyncImage(item.uri, null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                     }
                     FilledIconButton(onClick = { onRemove(index) }, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(28.dp), colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.error)) {
-                        Icon(Icons.Default.Close, null, modifier = Modifier.size(18.dp))
+                        Icon(AppIcons.Close(), null, modifier = Modifier.size(18.dp))
                     }
                 }
             }
@@ -561,11 +548,11 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                 
                 Row(modifier = Modifier.fillMaxWidth().height(90.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Row(modifier = Modifier.weight(2f).fillMaxHeight()) {
-                        ExpressiveActionCard(Modifier.weight(1f), Icons.Default.Save, stringResource(R.string.save), MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(topStart = 28.dp, bottomStart = 28.dp, topEnd = 4.dp, bottomEnd = 4.dp)) { saveLauncher.launch(pdfFile.name) }
+                        ExpressiveActionCard(Modifier.weight(1f), AppIcons.Save(), stringResource(R.string.save), MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(topStart = 28.dp, bottomStart = 28.dp, topEnd = 4.dp, bottomEnd = 4.dp)) { saveLauncher.launch(pdfFile.name) }
                         Spacer(Modifier.width(2.dp))
-                        ExpressiveActionCard(Modifier.weight(1f), Icons.Default.Share, stringResource(R.string.share), MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 28.dp, bottomEnd = 28.dp)) { sharePdf(context, pdfFile) }
+                        ExpressiveActionCard(Modifier.weight(1f), AppIcons.Share(), stringResource(R.string.share), MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 28.dp, bottomEnd = 28.dp)) { sharePdf(context, pdfFile) }
                     }
-                    ExpressiveActionCard(Modifier.weight(1f), Icons.Default.Add, stringResource(R.string.create_new), MaterialTheme.colorScheme.primaryContainer, MaterialTheme.shapes.extraLarge) {
+                    ExpressiveActionCard(Modifier.weight(1f), AppIcons.Add(), stringResource(R.string.create_new), MaterialTheme.colorScheme.primaryContainer, MaterialTheme.shapes.extraLarge) {
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress); onBack()
                     }
                 }
@@ -633,7 +620,7 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                         modifier = Modifier.padding(start = 8.dp)
                                     )
                                     IconButton(onClick = { isExpanded = false }) {
-                                        Icon(Icons.Default.Close, null)
+                                        Icon(AppIcons.Close(), null)
                                     }
                                 }
 
@@ -672,7 +659,7 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                                 ) {
                                     Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Icon(Icons.AutoMirrored.Filled.OpenInNew, null, modifier = Modifier.size(14.dp))
+                                        Icon(AppIcons.OpenInNew(), null, modifier = Modifier.size(14.dp))
                                         Spacer(Modifier.width(6.dp))
                                         Text(stringResource(R.string.preview_hint), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
                                     }
@@ -751,7 +738,7 @@ fun StepHeader(t: String, icon: androidx.compose.ui.graphics.vector.ImageVector)
 }
 
 @Composable
-fun EmptyStateView() { Column(Modifier.padding(40.dp), horizontalAlignment = Alignment.CenterHorizontally) { Icon(Icons.Default.PictureAsPdf, null, modifier = Modifier.size(64.dp), tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)); Spacer(Modifier.height(16.dp)); Text(stringResource(R.string.empty_state_text), modifier = Modifier.alpha(0.6f), textAlign = TextAlign.Center) } }
+fun EmptyStateView() { Column(Modifier.padding(40.dp), horizontalAlignment = Alignment.CenterHorizontally) { Icon(AppIcons.PictureAsPdf(), null, modifier = Modifier.size(64.dp), tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f)); Spacer(Modifier.height(16.dp)); Text(stringResource(R.string.empty_state_text), modifier = Modifier.alpha(0.6f), textAlign = TextAlign.Center) } }
 
 private fun openPdf(c: Context, f: File) {
     val u = FileProvider.getUriForFile(c, "${c.packageName}.fileprovider", f)
