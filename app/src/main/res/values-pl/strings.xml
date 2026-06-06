@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kreator PDF ze Zdjęć</string>
+    <string name="error_conversion">Ups! Coś poszło nie tak podczas tworzenia Twojego pliku PDF. Spróbuj ponownie!</string>
+    <string name="convert_to_pdf">Utwórz PDF</string>
+    <string name="step_label_1">1. Zdjęcia</string>
+    <string name="select_images">Galeria</string>
+    <string name="take_photo">Aparat</string>
+    <string name="step_label_2">2. Układ</string>
+    <string name="step_label_3">3. Jakość</string>
+    <string name="success_title">Wszystko gotowe! Twój PDF jest gotowy.</string>
+    <string name="save">Zapisz na Urządzeniu</string>
+    <string name="share">Udostępnij PDF</string>
+    <string name="create_new">Rozpocznij Nowy</string>
+    <string name="low">Kompaktowy</string>
+    <string name="medium">Standardowa</string>
+    <string name="high">Najlepsza</string>
+    <string name="quality_desc_low">Mniejszy rozmiar pliku, idealny do udostępniania przez e-mail.</string>
+    <string name="quality_desc_medium">Zrównoważona jakość do codziennego użytku ogólnego.</string>
+    <string name="quality_desc_high">Najwyższa możliwa rozdzielczość i szczegółowość.</string>
+    <string name="usage_title">Jak używać</string>
+    <string name="step_1">Wybierz zdjęcia z galerii lub zrób nowe aparatem.</string>
+    <string name="step_2">Przytrzymaj i przeciągnij zdjęcia, aby ułożyć je w idealnej kolejności.</string>
+    <string name="step_3">Wybierz jakość.</string>
+    <string name="step_4">Dotknij Utwórz PDF, aby zakończyć i zapisać dokument.</string>
+    <string name="empty_state_text">Twoja przestrzeń robocza jest pusta.\nDodaj trochę zdjęć, aby rozpocząć!</string>
+    <string name="generating_title">Składanie wszystkiego razem...</string>
+    <string name="generating_message">Proszę chwilę poczekać, podczas gdy budujemy Twój plik.</string>
+    <string name="preview_hint">Dotknij, aby zobaczyć szybki podgląd</string>
+    <string name="success_desc">Twój dokument jest gotowy do użycia!</string>
+    <string name="scroll_hint">Przewiń, aby zobaczyć wszystkie strony</string>
+    <string name="back">Wstecz</string>
+    <string name="page_count">%1$d stron</string>
+</resources>

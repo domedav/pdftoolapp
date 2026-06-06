@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bild till PDF-skapare</string>
+    <string name="error_conversion">Hoppsan! Något gick fel när din PDF skapades. Snälla försök igen!</string>
+    <string name="convert_to_pdf">Skapa PDF</string>
+    <string name="step_label_1">1. Foton</string>
+    <string name="select_images">Galleri</string>
+    <string name="take_photo">Kamera</string>
+    <string name="step_label_2">2. Ordna</string>
+    <string name="step_label_3">3. Kvalitet</string>
+    <string name="success_title">Allt klart! Din PDF är redo.</string>
+    <string name="save">Spara till Enhet</string>
+    <string name="share">Dela PDF</string>
+    <string name="create_new">Börja Ny</string>
+    <string name="low">Kompakt</string>
+    <string name="medium">Standard</string>
+    <string name="high">Bästa</string>
+    <string name="quality_desc_low">Mindre filstorlek, perfekt för att dela via e-post.</string>
+    <string name="quality_desc_medium">Balanserad kvalitet för vardagligt allmänt bruk.</string>
+    <string name="quality_desc_high">Högsta möjliga upplösning och detaljrikedom.</string>
+    <string name="usage_title">Hur man använder</string>
+    <string name="step_1">Välj dina foton från galleriet eller ta nya med kameran.</string>
+    <string name="step_2">Håll ned och dra foton för att lägga dem i perfekt ordning.</string>
+    <string name="step_3">Välj din kvalitet.</string>
+    <string name="step_4">Tryck på Skapa PDF för att slutföra och spara ditt dokument.</string>
+    <string name="empty_state_text">Din arbetsyta är tom.\nLägg till några foton för att komma igång!</string>
+    <string name="generating_title">Sätter ihop allt...</string>
+    <string name="generating_message">Vänligen vänta ett ögonblick medan vi bygger din fil.</string>
+    <string name="preview_hint">Tryck för en snabb förhandsgranskning</string>
+    <string name="success_desc">Ditt dokument är redo att användas!</string>
+    <string name="scroll_hint">Bläddra för att se alla sidor</string>
+    <string name="back">Tillbaka</string>
+    <string name="page_count">%1$d sidor</string>
+</resources>

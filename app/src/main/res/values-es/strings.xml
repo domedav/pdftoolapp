@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Creador de PDF de Imágenes</string>
+    <string name="error_conversion">¡Ups! Algo salió mal al crear tu PDF. ¡Por favor, inténtalo de nuevo!</string>
+    <string name="convert_to_pdf">Crear PDF</string>
+    <string name="step_label_1">1. Fotos</string>
+    <string name="select_images">Galería</string>
+    <string name="take_photo">Cámara</string>
+    <string name="step_label_2">2. Organizar</string>
+    <string name="step_label_3">3. Calidad</string>
+    <string name="success_title">¡Todo listo! Tu PDF está preparado.</string>
+    <string name="save">Guardar en Dispositivo</string>
+    <string name="share">Compartir PDF</string>
+    <string name="create_new">Empezar de Nuevo</string>
+    <string name="low">Compacto</string>
+    <string name="medium">Estándar</string>
+    <string name="high">Óptima</string>
+    <string name="quality_desc_low">Tamaño de archivo más pequeño, perfecto para compartir por correo electrónico.</string>
+    <string name="quality_desc_medium">Calidad equilibrada para uso general diario.</string>
+    <string name="quality_desc_high">La mayor resolución y detalle posibles.</string>
+    <string name="usage_title">Cómo usar</string>
+    <string name="step_1">Elige tus fotos de la galería o toma nuevas con la cámara.</string>
+    <string name="step_2">Mantén presionado y arrastra las fotos para ponerlas en el orden perfecto.</string>
+    <string name="step_3">Selecciona tu calidad.</string>
+    <string name="step_4">Toca Crear PDF para terminar y guardar tu documento.</string>
+    <string name="empty_state_text">Tu espacio de trabajo está vacío.\n¡Añade algunas fotos para empezar!</string>
+    <string name="generating_title">Juntándolo todo...</string>
+    <string name="generating_message">Por favor, espera un momento mientras creamos tu archivo.</string>
+    <string name="preview_hint">Toca para una vista previa rápida</string>
+    <string name="success_desc">¡Tu documento está listo para usar!</string>
+    <string name="scroll_hint">Desplázate para ver todas las páginas</string>
+    <string name="back">Atrás</string>
+    <string name="page_count">%1$d páginas</string>
+</resources>

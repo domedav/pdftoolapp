@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bild zu PDF Maker</string>
+    <string name="error_conversion">Hoppla! Etwas ist bei der Erstellung Ihres PDFs schiefgelaufen. Bitte versuchen Sie es erneut!</string>
+    <string name="convert_to_pdf">PDF erstellen</string>
+    <string name="step_label_1">1. Fotos</string>
+    <string name="select_images">Galerie</string>
+    <string name="take_photo">Kamera</string>
+    <string name="step_label_2">2. Anordnen</string>
+    <string name="step_label_3">3. Qualität</string>
+    <string name="success_title">Alles bereit! Ihr PDF ist fertig.</string>
+    <string name="save">Auf Gerät speichern</string>
+    <string name="share">PDF teilen</string>
+    <string name="create_new">Neu starten</string>
+    <string name="low">Kompakt</string>
+    <string name="medium">Standard</string>
+    <string name="high">Beste</string>
+    <string name="quality_desc_low">Kleinere Dateigröße, perfekt zum Teilen per E-Mail.</string>
+    <string name="quality_desc_medium">Ausgewogene Qualität für den alltäglichen Gebrauch.</string>
+    <string name="quality_desc_high">Die höchstmögliche Auflösung und Detailgenauigkeit.</string>
+    <string name="usage_title">Wie man es benutzt</string>
+    <string name="step_1">Wählen Sie Ihre Fotos aus der Galerie oder machen Sie neue mit der Kamera.</string>
+    <string name="step_2">Halten Sie die Fotos gedrückt und ziehen Sie sie, um sie in die perfekte Reihenfolge zu bringen.</string>
+    <string name="step_3">Wählen Sie Ihre Qualität.</string>
+    <string name="step_4">Tippen Sie auf PDF erstellen, um Ihr Dokument fertigzustellen und zu speichern.</string>
+    <string name="empty_state_text">Ihr Arbeitsbereich ist leer.\nFügen Sie einige Fotos hinzu, um zu beginnen!</string>
+    <string name="generating_title">Alles wird zusammengefügt...</string>
+    <string name="generating_message">Bitte warten Sie einen Moment, während wir Ihre Datei erstellen.</string>
+    <string name="preview_hint">Tippen Sie für eine schnelle Vorschau</string>
+    <string name="success_desc">Ihr Dokument ist einsatzbereit!</string>
+    <string name="scroll_hint">Scrollen, um alle Seiten zu sehen</string>
+    <string name="back">Zurück</string>
+    <string name="page_count">%1$d Seiten</string>
+</resources>

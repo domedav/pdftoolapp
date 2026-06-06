@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Конвертер Зображень у PDF</string>
+    <string name="error_conversion">Ой! Щось пішло не так під час створення вашого PDF. Будь ласка, спробуйте ще раз!</string>
+    <string name="convert_to_pdf">Створити PDF</string>
+    <string name="step_label_1">1. Фото</string>
+    <string name="select_images">Галерея</string>
+    <string name="take_photo">Камера</string>
+    <string name="step_label_2">2. Розташування</string>
+    <string name="step_label_3">3. Якість</string>
+    <string name="success_title">Все готово! Ваш PDF готовий.</string>
+    <string name="save">Зберегти на Пристрій</string>
+    <string name="share">Поділитися PDF</string>
+    <string name="create_new">Почати Знову</string>
+    <string name="low">Компактна</string>
+    <string name="medium">Стандартна</string>
+    <string name="high">Найкраща</string>
+    <string name="quality_desc_low">Менший розмір файлу, ідеально підходить для надсилання електронною поштою.</string>
+    <string name="quality_desc_medium">Збалансована якість для повсякденного загального використання.</string>
+    <string name="quality_desc_high">Максимально можлива роздільна здатність та деталізація.</string>
+    <string name="usage_title">Як використовувати</string>
+    <string name="step_1">Виберіть фотографії з галереї або зробіть нові за допомогою камери.</string>
+    <string name="step_2">Утримуйте та перетягуйте фотографії, щоб розставити їх в ідеальному порядку.</string>
+    <string name="step_3">Виберіть якість.</string>
+    <string name="step_4">Натисніть Створити PDF, щоб завершити та зберегти ваш документ.</string>
+    <string name="empty_state_text">Ваш робочий простір порожній.\nДодайте кілька фотографій, щоб почати!</string>
+    <string name="generating_title">Збираємо все разом...</string>
+    <string name="generating_message">Будь ласка, зачекайте хвилинку, поки ми створюємо ваш файл.</string>
+    <string name="preview_hint">Натисніть для швидкого перегляду</string>
+    <string name="success_desc">Ваш документ готовий до використання!</string>
+    <string name="scroll_hint">Прокрутіть, щоб побачити всі сторінки</string>
+    <string name="back">Назад</string>
+    <string name="page_count">%1$d сторінок</string>
+</resources>

@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Image to PDF Maker</string>
+    <string name="error_conversion">Oops! Something went wrong while creating your PDF. Please try again!</string>
+    <string name="convert_to_pdf">Create PDF</string>
+    
+    <string name="step_label_1">1. Photos</string>
+    <string name="select_images">Gallery</string>
+    <string name="take_photo">Camera</string>
+    <string name="step_label_2">2. Arrange</string>
+    <string name="step_label_3">3. Quality</string>
+    
+    <string name="success_title">All set! Your pdf is ready.</string>
+    <string name="save">Save to Device</string>
+    <string name="share">Share PDF</string>
+    <string name="create_new">Start New</string>
+    
+    <string name="low">Compact</string>
+    <string name="medium">Standard</string>
+    <string name="high">Best</string>
+    <string name="quality_desc_low">Smaller file size, perfect for sharing via email.</string>
+    <string name="quality_desc_medium">Balanced quality for everyday general use.</string>
+    <string name="quality_desc_high">The highest possible resolution and detail.</string>
+    
+    <string name="usage_title">How to use</string>
+    <string name="step_1">Pick your photos from the gallery or snap new ones with the camera.</string>
+    <string name="step_2">Long press and drag photos to put them in the perfect order.</string>
+    <string name="step_3">Select your quality.</string>
+    <string name="step_4">Tap Create PDF to finish and save your document.</string>
+    
+    <string name="empty_state_text">Your workspace is empty.\nAdd some photos to get started!</string>
+    
+    <string name="generating_title">Putting it together...</string>
+    <string name="generating_message">Please wait a moment while we build your file.</string>
+    <string name="preview_hint">Tap for a quick preview</string>
+    <string name="success_desc">Your document is ready to go!</string>
+    <string name="scroll_hint">Scroll to see all pages</string>
+    <string name="back">Back</string>
+    <string name="page_count">%1$d pages</string>
+</resources>

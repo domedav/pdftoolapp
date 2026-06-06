@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Képből PDF Készítő</string>
+    <string name="error_conversion">Hoppá! Valami hiba történt a PDF készítése közben. Kérlek, próbáld újra!</string>
+    <string name="convert_to_pdf">PDF készítése</string>
+    
+    <string name="step_label_1">1. Fotók</string>
+    <string name="select_images">Galéria</string>
+    <string name="take_photo">Kamera</string>
+    <string name="step_label_2">2. Sorrend</string>
+    <string name="step_label_3">3. Minőség</string>
+    
+    <string name="success_title">Szuper! A PDF elkészült.</string>
+    <string name="save">Mentés a telefonra</string>
+    <string name="share">PDF megosztása</string>
+    <string name="create_new">Új indítása</string>
+    
+    <string name="low">Kompakt</string>
+    <string name="medium">Normál</string>
+    <string name="high">Legjobb</string>
+    <string name="quality_desc_low">Kisebb fájlméret, tökéletes e-mailes küldéshez.</string>
+    <string name="quality_desc_medium">Kiegyensúlyozott minőség általános használatra.</string>
+    <string name="quality_desc_high">A lehető legjobb felbontás és részletgazdagság.</string>
+    
+    <string name="usage_title">Hogyan használd?</string>
+    <string name="step_1">Válaszd ki a fotóidat a galériából, vagy készíts újakat a kamerával.</string>
+    <string name="step_2">A képeket hosszan nyomva és húzva állíthatod be a tökéletes sorrendet.</string>
+    <string name="step_3">Válaszd ki a kívánt minőséget.</string>
+    <string name="step_4">Koppints a PDF készítése gombra a befejezéshez és a mentéshez.</string>
+    
+    <string name="empty_state_text">Még üres a munkaterület.\nAdj hozzá fotókat a kezdéshez!</string>
+    
+    <string name="generating_title">Összeállítás folyamatban...</string>
+    <string name="generating_message">Kérlek várj egy pillanatot, amíg elkészítjük a fájlt.</string>
+    <string name="preview_hint">Koppints a gyors előnézethez</string>
+    <string name="success_desc">A dokumentumod készen áll!</string>
+    <string name="scroll_hint">Görgess az összes oldal megtekintéséhez</string>
+    <string name="back">Vissza</string>
+    <string name="page_count">%1$d oldal</string>
+</resources>

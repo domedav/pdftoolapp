@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Creatore di PDF da Immagini</string>
+    <string name="error_conversion">Ops! Qualcosa è andato storto durante la creazione del tuo PDF. Per favore, riprova!</string>
+    <string name="convert_to_pdf">Crea PDF</string>
+    <string name="step_label_1">1. Foto</string>
+    <string name="select_images">Galleria</string>
+    <string name="take_photo">Fotocamera</string>
+    <string name="step_label_2">2. Organizza</string>
+    <string name="step_label_3">3. Qualità</string>
+    <string name="success_title">Tutto pronto! Il tuo PDF è pronto.</string>
+    <string name="save">Salva sul Dispositivo</string>
+    <string name="share">Condividi PDF</string>
+    <string name="create_new">Inizia Nuovo</string>
+    <string name="low">Compatto</string>
+    <string name="medium">Standard</string>
+    <string name="high">Ottima</string>
+    <string name="quality_desc_low">Dimensioni del file più piccole, perfette per la condivisione via email.</string>
+    <string name="quality_desc_medium">Qualità bilanciata per l\'uso generale quotidiano.</string>
+    <string name="quality_desc_high">La massima risoluzione e i dettagli possibili.</string>
+    <string name="usage_title">Come usare</string>
+    <string name="step_1">Scegli le tue foto dalla galleria o scattane di nuove con la fotocamera.</string>
+    <string name="step_2">Tieni premuto e trascina le foto per metterle nell\'ordine perfetto.</string>
+    <string name="step_3">Seleziona la tua qualità.</string>
+    <string name="step_4">Tocca Crea PDF per completare e salvare il tuo documento.</string>
+    <string name="empty_state_text">Il tuo spazio di lavoro è vuoto.\nAggiungi alcune foto per iniziare!</string>
+    <string name="generating_title">Mettendo tutto insieme...</string>
+    <string name="generating_message">Attendi un momento mentre costruiamo il tuo file.</string>
+    <string name="preview_hint">Tocca per una rapida anteprima</string>
+    <string name="success_desc">Il tuo documento è pronto all\'uso!</string>
+    <string name="scroll_hint">Scorri per vedere tutte le pagine</string>
+    <string name="back">Indietro</string>
+    <string name="page_count">%1$d pagine</string>
+</resources>

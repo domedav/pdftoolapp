@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Créateur de PDF à partir d\'images</string>
+    <string name="error_conversion">Oups ! Un problème est survenu lors de la création de votre PDF. Veuillez réessayer !</string>
+    <string name="convert_to_pdf">Créer le PDF</string>
+    <string name="step_label_1">1. Photos</string>
+    <string name="select_images">Galerie</string>
+    <string name="take_photo">Caméra</string>
+    <string name="step_label_2">2. Organiser</string>
+    <string name="step_label_3">3. Qualité</string>
+    <string name="success_title">Tout est prêt ! Votre PDF est prêt.</string>
+    <string name="save">Enregistrer sur l\'appareil</string>
+    <string name="share">Partager le PDF</string>
+    <string name="create_new">Commencer un nouveau</string>
+    <string name="low">Compact</string>
+    <string name="medium">Standard</string>
+    <string name="high">Optimale</string>
+    <string name="quality_desc_low">Taille de fichier plus petite, idéale pour le partage par e-mail.</string>
+    <string name="quality_desc_medium">Qualité équilibrée pour une utilisation générale au quotidien.</string>
+    <string name="quality_desc_high">La résolution et les détails les plus élevés possibles.</string>
+    <string name="usage_title">Comment utiliser</string>
+    <string name="step_1">Choisissez vos photos dans la galerie ou prenez-en de nouvelles avec l\'appareil photo.</string>
+    <string name="step_2">Appuyez longuement et faites glisser les photos pour les mettre dans l\'ordre parfait.</string>
+    <string name="step_3">Sélectionnez votre qualité.</string>
+    <string name="step_4">Appuyez sur Créer le PDF pour terminer et enregistrer votre document.</string>
+    <string name="empty_state_text">Votre espace de travail est vide.\nAjoutez des photos pour commencer !</string>
+    <string name="generating_title">Assemblage en cours...</string>
+    <string name="generating_message">Veuillez patienter un instant pendant que nous construisons votre fichier.</string>
+    <string name="preview_hint">Appuyez pour un aperçu rapide</string>
+    <string name="success_desc">Votre document est prêt à l\'emploi !</string>
+    <string name="scroll_hint">Faites défiler pour voir toutes les pages</string>
+    <string name="back">Retour</string>
+    <string name="page_count">%1$d pages</string>
+</resources>

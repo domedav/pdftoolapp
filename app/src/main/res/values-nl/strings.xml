@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Afbeelding naar PDF Maker</string>
+    <string name="error_conversion">Oeps! Er is iets misgegaan bij het maken van je PDF. Probeer het opnieuw!</string>
+    <string name="convert_to_pdf">PDF Maken</string>
+    <string name="step_label_1">1. Foto\'s</string>
+    <string name="select_images">Galerij</string>
+    <string name="take_photo">Camera</string>
+    <string name="step_label_2">2. Schikken</string>
+    <string name="step_label_3">3. Kwaliteit</string>
+    <string name="success_title">Helemaal klaar! Je PDF is klaar.</string>
+    <string name="save">Opslaan op Apparaat</string>
+    <string name="share">PDF Delen</string>
+    <string name="create_new">Nieuw Starten</string>
+    <string name="low">Compact</string>
+    <string name="medium">Standaard</string>
+    <string name="high">Beste</string>
+    <string name="quality_desc_low">Kleinere bestandsgrootte, perfect om via e-mail te delen.</string>
+    <string name="quality_desc_medium">Uitgebalanceerde kwaliteit voor algemeen dagelijks gebruik.</string>
+    <string name="quality_desc_high">De hoogst mogelijke resolutie en details.</string>
+    <string name="usage_title">Hoe te gebruiken</string>
+    <string name="step_1">Kies je foto\'s uit de galerij of maak nieuwe met de camera.</string>
+    <string name="step_2">Houd ingedrukt en sleep foto\'s om ze in de perfecte volgorde te zetten.</string>
+    <string name="step_3">Selecteer je kwaliteit.</string>
+    <string name="step_4">Tik op PDF Maken om te voltooien en je document op te slaan.</string>
+    <string name="empty_state_text">Je werkruimte is leeg.\nVoeg wat foto\'s toe om te beginnen!</string>
+    <string name="generating_title">Alles samenvoegen...</string>
+    <string name="generating_message">Een moment geduld terwijl we je bestand bouwen.</string>
+    <string name="preview_hint">Tik voor een snelle preview</string>
+    <string name="success_desc">Je document is klaar voor gebruik!</string>
+    <string name="scroll_hint">Scroll om alle pagina\'s te zien</string>
+    <string name="back">Terug</string>
+    <string name="page_count">%1$d pagina\'s</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">صانع ملفات PDF من الصور</string>
+    <string name="error_conversion">عفوًا! حدث خطأ ما أثناء إنشاء ملف PDF الخاص بك. يرجى المحاولة مرة أخرى!</string>
+    <string name="convert_to_pdf">إنشاء PDF</string>
+    <string name="step_label_1">1. الصور</string>
+    <string name="select_images">المعرض</string>
+    <string name="take_photo">الكاميرا</string>
+    <string name="step_label_2">2. ترتيب</string>
+    <string name="step_label_3">3. الجودة</string>
+    <string name="success_title">كل شيء جاهز! ملف PDF الخاص بك جاهز.</string>
+    <string name="save">حفظ في الجهاز</string>
+    <string name="share">مشاركة PDF</string>
+    <string name="create_new">بدء جديد</string>
+    <string name="low">مضغوط</string>
+    <string name="medium">قياسي</string>
+    <string name="high">الأفضل</string>
+    <string name="quality_desc_low">حجم ملف أصغر ، مثالي للمشاركة عبر البريد الإلكتروني.</string>
+    <string name="quality_desc_medium">جودة متوازنة للاستخدام العام اليومي.</string>
+    <string name="quality_desc_high">أعلى دقة وتفاصيل ممكنة.</string>
+    <string name="usage_title">كيفية الاستخدام</string>
+    <string name="step_1">اختر صورك من المعرض أو التقط صورًا جديدة بالكاميرا.</string>
+    <string name="step_2">اضغط مع الاستمرار واسحب الصور لوضعها في الترتيب المثالي.</string>
+    <string name="step_3">حدد الجودة الخاصة بك.</string>
+    <string name="step_4">انقر فوق إنشاء PDF للإنهاء وحفظ المستند الخاص بك.</string>
+    <string name="empty_state_text">مساحة العمل الخاصة بك فارغة.\nأضف بعض الصور للبدء!</string>
+    <string name="generating_title">وضع كل شيء معًا...</string>
+    <string name="generating_message">يرجى الانتظار لحظة بينما نقوم بإنشاء ملفك.</string>
+    <string name="preview_hint">انقر لمعاينة سريعة</string>
+    <string name="success_desc">مستندك جاهز للانطلاق!</string>
+    <string name="scroll_hint">قم بالتمرير لرؤية جميع الصفحات</string>
+    <string name="back">عودة</string>
+    <string name="page_count">%1$d صفحة</string>
+    </resources>

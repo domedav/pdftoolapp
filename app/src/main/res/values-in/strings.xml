@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pembuat Gambar ke PDF</string>
+    <string name="error_conversion">Ups! Ada yang salah saat membuat PDF Anda. Silakan coba lagi!</string>
+    <string name="convert_to_pdf">Buat PDF</string>
+    <string name="step_label_1">1. Foto</string>
+    <string name="select_images">Galeri</string>
+    <string name="take_photo">Kamera</string>
+    <string name="step_label_2">2. Susun</string>
+    <string name="step_label_3">3. Kualitas</string>
+    <string name="success_title">Semuanya siap! PDF Anda sudah siap.</string>
+    <string name="save">Simpan ke Perangkat</string>
+    <string name="share">Bagikan PDF</string>
+    <string name="create_new">Mulai Baru</string>
+    <string name="low">Kompak</string>
+    <string name="medium">Standar</string>
+    <string name="high">Terbaik</string>
+    <string name="quality_desc_low">Ukuran file lebih kecil, cocok untuk berbagi melalui email.</string>
+    <string name="quality_desc_medium">Kualitas seimbang untuk penggunaan umum sehari-hari.</string>
+    <string name="quality_desc_high">Resolusi dan detail setinggi mungkin.</string>
+    <string name="usage_title">Cara menggunakan</string>
+    <string name="step_1">Pilih foto Anda dari galeri atau ambil yang baru dengan kamera.</string>
+    <string name="step_2">Tekan lama dan seret foto untuk meletakkannya dalam urutan yang sempurna.</string>
+    <string name="step_3">Pilih kualitas Anda.</string>
+    <string name="step_4">Ketuk Buat PDF untuk menyelesaikan dan menyimpan dokumen Anda.</string>
+    <string name="empty_state_text">Ruang kerja Anda kosong.\nTambahkan beberapa foto untuk memulai!</string>
+    <string name="generating_title">Menyatukannya...</string>
+    <string name="generating_message">Harap tunggu sebentar sementara kami membuat file Anda.</string>
+    <string name="preview_hint">Ketuk untuk pratinjau cepat</string>
+    <string name="success_desc">Dokumen Anda siap digunakan!</string>
+    <string name="scroll_hint">Gulir untuk melihat semua halaman</string>
+    <string name="back">Kembali</string>
+    <string name="page_count">%1$d halaman</string>
+</resources>

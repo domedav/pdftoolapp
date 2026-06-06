@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">โปรแกรมสร้าง PDF จากรูปภาพ</string>
+    <string name="error_conversion">อุ๊ปส์! มีบางอย่างผิดพลาดขณะสร้าง PDF ของคุณ โปรดลองอีกครั้ง!</string>
+    <string name="convert_to_pdf">สร้าง PDF</string>
+    <string name="step_label_1">1. รูปภาพ</string>
+    <string name="select_images">แกลเลอรี</string>
+    <string name="take_photo">กล้อง</string>
+    <string name="step_label_2">2. จัดเรียง</string>
+    <string name="step_label_3">3. คุณภาพ</string>
+    <string name="success_title">เรียบร้อย! PDF ของคุณพร้อมแล้ว</string>
+    <string name="save">บันทึกลงในอุปกรณ์</string>
+    <string name="share">แชร์ PDF</string>
+    <string name="create_new">เริ่มใหม่</string>
+    <string name="low">ขนาดกะทัดรัด</string>
+    <string name="medium">มาตรฐาน</string>
+    <string name="high">ดีที่สุด</string>
+    <string name="quality_desc_low">ขนาดไฟล์เล็กลง เหมาะสำหรับการแชร์ผ่านอีเมล</string>
+    <string name="quality_desc_medium">คุณภาพสมดุลสำหรับการใช้งานทั่วไปในแต่ละวัน</string>
+    <string name="quality_desc_high">ความละเอียดและรายละเอียดสูงสุดที่เป็นไปได้</string>
+    <string name="usage_title">วิธีใช้งาน</string>
+    <string name="step_1">เลือกรูปภาพจากแกลเลอรีหรือถ่ายรูปใหม่ด้วยกล้อง</string>
+    <string name="step_2">กดค้างไว้แล้วลากรูปภาพเพื่อจัดเรียงตามลำดับที่สมบูรณ์แบบ</string>
+    <string name="step_3">เลือกคุณภาพของคุณ</string>
+    <string name="step_4">แตะ สร้าง PDF เพื่อเสร็จสิ้นและบันทึกเอกสารของคุณ</string>
+    <string name="empty_state_text">พื้นที่ทำงานของคุณว่างเปล่า\nเพิ่มรูปภาพเพื่อเริ่มต้น!</string>
+    <string name="generating_title">กำลังรวบรวม...</string>
+    <string name="generating_message">โปรดรอสักครู่ขณะที่เราสร้างไฟล์ของคุณ</string>
+    <string name="preview_hint">แตะเพื่อดูตัวอย่างอย่างรวดเร็ว</string>
+    <string name="success_desc">เอกสารของคุณพร้อมใช้งานแล้ว!</string>
+    <string name="scroll_hint">เลื่อนเพื่อดูทุกหน้า</string>
+    <string name="back">กลับ</string>
+    <string name="page_count">%1$d หน้า</string>
+</resources>

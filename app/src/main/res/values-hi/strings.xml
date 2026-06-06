@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">इमेज टू पीडीएफ मेकर</string>
+    <string name="error_conversion">उफ़! आपका PDF बनाते समय कुछ गलत हो गया। कृपया पुनः प्रयास करें!</string>
+    <string name="convert_to_pdf">PDF बनाएं</string>
+    <string name="step_label_1">1. तस्वीरें</string>
+    <string name="select_images">गैलरी</string>
+    <string name="take_photo">कैमरा</string>
+    <string name="step_label_2">2. व्यवस्थित करें</string>
+    <string name="step_label_3">3. गुणवत्ता</string>
+    <string name="success_title">सब सेट है! आपका PDF तैयार है।</string>
+    <string name="save">डिवाइस में सेव करें</string>
+    <string name="share">PDF साझा करें</string>
+    <string name="create_new">नया शुरू करें</string>
+    <string name="low">छोटा</string>
+    <string name="medium">मानक</string>
+    <string name="high">सर्वश्रेष्ठ</string>
+    <string name="quality_desc_low">छोटा फ़ाइल आकार, ईमेल के माध्यम से साझा करने के लिए एकदम सही।</string>
+    <string name="quality_desc_medium">रोजमर्रा के सामान्य उपयोग के लिए संतुलित गुणवत्ता।</string>
+    <string name="quality_desc_high">उच्चतम संभव रिज़ॉल्यूशन और विवरण।</string>
+    <string name="usage_title">उपयोग कैसे करें</string>
+    <string name="step_1">गैलरी से अपनी तस्वीरें चुनें या कैमरे से नई तस्वीरें लें।</string>
+    <string name="step_2">तस्वीरों को सही क्रम में रखने के लिए लंबे समय तक दबाएं और खींचें।</string>
+    <string name="step_3">अपनी गुणवत्ता का चयन करें।</string>
+    <string name="step_4">समाप्त करने और अपने दस्तावेज़ को सहेजने के लिए PDF बनाएं पर टैप करें।</string>
+    <string name="empty_state_text">आपका कार्यक्षेत्र खाली है。\nशुरू करने के लिए कुछ तस्वीरें जोड़ें!</string>
+    <string name="generating_title">सब कुछ एक साथ रख रहे हैं...</string>
+    <string name="generating_message">कृपया एक पल प्रतीक्षा करें जब तक हम आपकी फ़ाइल बनाते हैं।</string>
+    <string name="preview_hint">त्वरित पूर्वावलोकन के लिए टैप करें</string>
+    <string name="success_desc">आपका दस्तावेज़ जाने के लिए तैयार है!</string>
+    <string name="scroll_hint">सभी पेज देखने के लिए स्क्रॉल करें</string>
+    <string name="back">पीछे</string>
+    <string name="page_count">%1$d पृष्ठ</string>
+    </resources>

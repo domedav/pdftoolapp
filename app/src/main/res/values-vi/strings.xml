@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trình tạo PDF từ hình ảnh</string>
+    <string name="error_conversion">Rất tiếc! Đã xảy ra lỗi khi tạo PDF của bạn. Vui lòng thử lại!</string>
+    <string name="convert_to_pdf">Tạo PDF</string>
+    <string name="step_label_1">1. Ảnh</string>
+    <string name="select_images">Thư viện</string>
+    <string name="take_photo">Máy ảnh</string>
+    <string name="step_label_2">2. Sắp xếp</string>
+    <string name="step_label_3">3. Chất lượng</string>
+    <string name="success_title">Xong rồi! Tệp PDF của bạn đã sẵn sàng.</string>
+    <string name="save">Lưu vào Thiết bị</string>
+    <string name="share">Chia sẻ PDF</string>
+    <string name="create_new">Bắt đầu Mới</string>
+    <string name="low">Nhỏ gọn</string>
+    <string name="medium">Tiêu chuẩn</string>
+    <string name="high">Tốt nhất</string>
+    <string name="quality_desc_low">Kích thước tệp nhỏ hơn, hoàn hảo để chia sẻ qua email.</string>
+    <string name="quality_desc_medium">Chất lượng cân bằng cho mục đích sử dụng chung hàng ngày.</string>
+    <string name="quality_desc_high">Độ phân giải và chi tiết cao nhất có thể.</string>
+    <string name="usage_title">Cách sử dụng</string>
+    <string name="step_1">Chọn ảnh của bạn từ thư viện hoặc chụp ảnh mới bằng máy ảnh.</string>
+    <string name="step_2">Nhấn và giữ rồi kéo ảnh để đặt chúng theo thứ tự hoàn hảo.</string>
+    <string name="step_3">Chọn chất lượng của bạn.</string>
+    <string name="step_4">Nhấn Tạo PDF để hoàn tất và lưu tài liệu của bạn.</string>
+    <string name="empty_state_text">Không gian làm việc của bạn đang trống.\nThêm một số hình ảnh để bắt đầu!</string>
+    <string name="generating_title">Đang kết hợp...</string>
+    <string name="generating_message">Vui lòng đợi một lát trong khi chúng tôi xây dựng tệp của bạn.</string>
+    <string name="preview_hint">Nhấn để xem trước nhanh</string>
+    <string name="success_desc">Tài liệu của bạn đã sẵn sàng!</string>
+    <string name="scroll_hint">Cuộn để xem tất cả các trang</string>
+    <string name="back">Quay lại</string>
+    <string name="page_count">%1$d trang</string>
+</resources>

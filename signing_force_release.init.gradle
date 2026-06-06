@@ -1,0 +1,22 @@
+allprojects {
+    plugins.withId('com.android.application') {
+        android {
+            signingConfigs {
+                release {
+                    storeFile file('/workspace/app/release-key.jks')
+                    storePassword 'pdftool2026!'
+                    keyAlias 'release'
+                    keyPassword 'pdftool2026!'
+                }
+            }
+            buildTypes {
+                debug {
+                    signingConfig signingConfigs.release
+                    debuggable false
+                    minifyEnabled false
+                    shrinkResources false
+                }
+            }
+        }
+    }
+}
