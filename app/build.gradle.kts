@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -11,8 +14,30 @@ android {
         applicationId = "com.domedav.pdftool"
         minSdk = 24
         targetSdk = 37
-        versionCode = (project.findProperty("versionCode") as? String)?.toInt() ?: 1
-        versionName = (project.findProperty("versionName") as? String) ?: "1.0"
+        
+        // Auto-incrementing version logic
+        val buildNumberFile = rootProject.file(".buildnum")
+        var buildNumber = 1 // Default if file not found or empty
+
+        if (buildNumberFile.exists()) {
+            try {
+                buildNumber = buildNumberFile.readText().trim().toInt()
+            } catch (e: Exception) {
+                println("Warning: Could not read .buildnum file. Using default build number 1. Error: ${e.message}")
+            }
+        }
+
+        // Increment build number for this build
+        buildNumber++
+
+        // Write back the new build number
+        buildNumberFile.writeText(buildNumber.toString())
+
+        versionCode = buildNumber
+        val date = Date()
+        val dateFormat = SimpleDateFormat("yyyy.MM.dd")
+        val formattedDate = dateFormat.format(date)
+        versionName = "$formattedDate.$buildNumber"
         
         // A vectorDrawables szükséges a Compose ikonokhoz
         vectorDrawables {
@@ -56,7 +81,7 @@ android {
     }
 
     androidResources {
-        ignoreAssetsPattern = "!assets/*"
+        ignoreAssetsPattern = "assets/*"
     }
 }
 
@@ -68,7 +93,6 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     
     // Splash Screen
@@ -84,6 +108,7 @@ dependencies {
     implementation(libs.reorderable)
 
     // DEBUG (Csak fejlesztés közben kell)
+    debugImplementation(libs.androidx.ui.tooling.preview) // Moved from implementation
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
