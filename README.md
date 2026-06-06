@@ -1,9 +1,5 @@
 # Image to PDF Maker
 
-<p align="center">
-  <img src="fastlane/metadata/android/en-US/images/icon.png" width="128" alt="App Icon"/>
-</p>
-
 ![Feature Graphic](fastlane/metadata/android/en-US/images/featureGraphic.png)
 
 Image to PDF Maker is an open-source, privacy-first application designed to convert your photos and images into a single PDF document quickly and securely.
@@ -47,7 +43,7 @@ This project uses Gradle. You can build the APK using the following command:
 ## Technical Details
 
 - **Minimum SDK**: 24 (Android 7.0)
-- **Target SDK**: 37 (Android 15)
+- **Target SDK**: 37 (Android 17)
 - **Language**: Kotlin
 - **UI Framework**: Jetpack Compose
 
