@@ -1,0 +1,18 @@
+Alakítsa át fotóit és képeit professzionális PDF dokumentumokká azonnal a Képből PDF készítő segítségével. Az alkalmazás tervezésekor az adatvédelem volt az elsődleges szempont: minden folyamat helyben, az eszközén történik, így dokumentumai soha nem kerülnek fel a felhőbe.
+
+Főbb funkciók:
+• 100% Offline működés: Nincs szükség internetkapcsolatra. Az adatai az Ön telefonján maradnak.
+• Internet engedély nélkül: Az alkalmazás nem kér internet-hozzáférést, ami maximális biztonságot garantál.
+• Kiváló minőség: Megőrzi a képek élességét a kész dokumentumban is.
+• Végtelen fotó: Válasszon ki tetszőleges számú képet egyetlen PDF létrehozásához.
+• Hirdetésmentes: Tiszta és gyors felhasználói élmény zavaró tényezők nélkül.
+• Nyílt forráskód (Open Source): Átlátható és megbízható szoftver.
+
+Legyen szó nyugtákról, iskolai feladatokról vagy beszkennelt iratokról, a Képből PDF készítő gyors és megbízható megoldást nyújt anélkül, hogy feláldozná személyes adatai védelmét.
+
+Hogyan működik?
+1. Válasszon képeket a galériából vagy készítsen újakat a kamerával.
+2. Állítsa be a kívánt sorrendet.
+3. Koppintson a konvertálásra és mentse el a PDF-et.
+
+Töltse le most a biztonságos és zökkenőmentes dokumentumkészítésért!

@@ -1,0 +1,251 @@
+import os
+import random
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+import math
+import shutil
+
+FONT_PATH_DEFAULT = "assets/Roboto-Bold.ttf"
+
+# System fonts for non-latin languages (found via fc-list)
+FONTS = {
+    "hi": "/usr/share/fonts/google-noto-vf/NotoSansDevanagari[wght].ttf",
+    "ja": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "zh-rCN": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "zh-rTW": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "ko": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "ar": "/usr/share/fonts/google-noto-vf/NotoSansArabic[wght].ttf",
+    "th": "/usr/share/fonts/gnu-freefont/FreeSansBold.otf", # Generic fallback for Thai if Noto not found
+}
+
+# Dictionary for screenshot titles in different languages
+LOCALIZED_SCREENSHOT_TITLES = {
+    "ar": ["بسيط.", "سريع.", "صور غير محدودة", "ترتيب مثالي", "حجم مُحسّن", "تم في ثوانٍ"],
+    "de": ["Einfach.", "Schnell.", "Unbegrenzte Fotos", "Perfekte Ordnung", "Optimierte Größe", "In Sekunden fertig"],
+    "en-US": ["Simple.", "Fast.", "Unlimited Photos", "Perfect Order", "Optimized Size", "Done in Seconds"],
+    "es": ["Simple.", "Rápido.", "Fotos ilimitadas", "Orden perfecto", "Tamaño optimizado", "Listo en segundos"],
+    "fr": ["Simple.", "Rapide.", "Photos illimitées", "Ordre parfait", "Taille optimisée", "Prêt en secondes"],
+    "hi": ["सरल।", "तेज़।", "असीमित तस्वीरें", "सटीक क्रम", "अनुकूलित आकार", "सेकंडों में तैयार"],
+    "hu-HU": ["Egyszerű.", "Gyors.", "Végtelen fotó", "Tökéletes sorrend", "Optimális méret", "Kész másodpercek alatt"],
+    "in": ["Sederhana.", "Cepat.", "Foto Tanpa Batas", "Urutan Sempurna", "Ukuran Optimal", "Selesai dalam Detik"],
+    "it": ["Semplice.", "Veloce.", "Foto illimitate", "Ordine perfetto", "Dimensione ottimizzata", "Pronto in pochi secondi"],
+    "ja": ["かんたん", "爆速変換", "枚数無制限", "自由な並び替え", "最適なサイズ", "数秒で完了"],
+    "ko": ["간편함", "초고속 변환", "무제한 사진", "완벽한 정렬", "최적화된 용량", "순식간에 완료"],
+    "nl": ["Eenvoudig", "Razendsnel", "Onbeperkt foto's", "Perfecte volgorde", "Geoptimaliseerd formaat", "Klaar in seconden"],
+    "pl": ["Prostota", "Szybkość", "Nielimitowane zdjęcia", "Idealna kolejność", "Optymalny rozmiar", "Gotowe w kilka sekund"],
+    "pt-rBR": ["Simples.", "Rápido.", "Fotos ilimitadas", "Ordem perfeita", "Tamanho otimizado", "Pronto em segundos"],
+    "ru": ["Просто.", "Быстро.", "Безлимит фото", "Идеальный порядок", "Оптимальный размер", "Готово за секунды"],
+    "sv": ["Enkelt.", "Snabbt.", "Obegränsat med foton", "Perfekt ordning", "Optimerad storlek", "Klart på sekunder"],
+    "th": ["เรียบง่าย", "รวดเร็ว", "ไม่จำกัดจำนวนรูป", "จัดเรียงได้ดั่งใจ", "ขนาดไฟล์เหมาะสม", "เสร็จไวในไม่กี่วินาที"],
+    "tr": ["Basit.", "Hızlı.", "Sınırsız Fotoğraf", "Kusursuz Düzen", "Optimize Boyut", "Saniyeler İçinde"],
+    "uk": ["Просто.", "Швидко.", "Безліч фото", "Ідеальний порядок", "Оптимальний розмір", "Готово за секунди"],
+    "vi": ["Đơn giản.", "Nhanh chóng.", "Ảnh không giới hạn", "Sắp xếp hoàn hảo", "Kích thước tối ưu", "Xong trong tích tắc"],
+    "zh-rCN": ["极简。", "极速。", "照片不限数量", "完美排序", "优化体积", "秒级完成"],
+    "zh-rTW": ["極簡。", "極速。", "相片無限制", "完美排序", "最佳化體積", "秒級完成"]
+}
+
+DEFAULT_TITLES = LOCALIZED_SCREENSHOT_TITLES["en-US"]
+
+def get_font(lang, size):
+    path = FONTS.get(lang, FONT_PATH_DEFAULT)
+    if not os.path.exists(path):
+        # Fallback to base language if lang is region-specific
+        path = FONTS.get(lang.split("-")[0], FONT_PATH_DEFAULT)
+    
+    if not os.path.exists(path):
+        return ImageFont.load_default()
+    
+    try:
+        return ImageFont.truetype(path, size)
+    except:
+        return ImageFont.load_default()
+
+def wrap_text(text, font, max_width):
+    lines = []
+    words = text.split()
+    while words:
+        line = ''
+        while words and font.getlength(line + words[0]) <= max_width:
+            line += (words.pop(0) + ' ')
+        if not line: # Single word too long
+            line = words.pop(0)
+        lines.append(line.strip())
+    return '\n'.join(lines)
+
+def get_titles(lang):
+    if lang in LOCALIZED_SCREENSHOT_TITLES:
+        return LOCALIZED_SCREENSHOT_TITLES[lang]
+    base_lang = lang.split('-')[0]
+    return LOCALIZED_SCREENSHOT_TITLES.get(base_lang, DEFAULT_TITLES)
+
+def generate_pattern_background(width, height):
+    bg_color = (240, 244, 248)
+    img = Image.new('RGB', (width, height), bg_color)
+    draw = ImageDraw.Draw(img, 'RGBA')
+    points = []
+    num_points = int((width * height) / 25000)
+    for _ in range(num_points):
+        points.append((random.randint(-100, width+100), random.randint(-100, height+100)))
+    for p1 in points:
+        for p2 in points:
+            dist = math.hypot(p1[0]-p2[0], p1[1]-p2[1])
+            if 50 < dist < 300:
+                alpha = int(255 * (1 - dist/300))
+                draw.line([p1, p2], fill=(100, 150, 200, int(alpha*0.3)), width=2)
+    for p in points:
+        r = random.randint(5, 15)
+        draw.ellipse([p[0]-r, p[1]-r, p[0]+r, p[1]+r], fill=(100, 150, 255, 100))
+        draw.ellipse([p[0]-3, p[1]-3, p[0]+3, p[1]+3], fill=(255, 255, 255, 255))
+    return img
+
+def create_framed_screenshot(screenshot_path, bg_img, title_text, lang):
+    canvas = bg_img.convert("RGBA")
+    draw = ImageDraw.Draw(canvas)
+    try:
+        ss = Image.open(screenshot_path).convert("RGBA")
+    except:
+        ss = Image.new('RGBA', (1080, 1920), (200, 200, 200, 255))
+    
+    ss_w, ss_h = 860, 1720
+    ss = ss.resize((ss_w, ss_h), Image.Resampling.LANCZOS)
+    
+    # Device Frame
+    frame_w, frame_h = ss_w + 40, ss_h + 40
+    # Center horizontally, but fix Y to bottom part to leave space for text
+    frame_x = (canvas.width - frame_w) // 2
+    frame_y = 350 # Fixed top margin start
+    
+    shadow = Image.new('RGBA', (canvas.width, canvas.height), (0,0,0,0))
+    shadow_draw = ImageDraw.Draw(shadow)
+    shadow_draw.rounded_rectangle([frame_x+20, frame_y+20, frame_x+frame_w+20, frame_y+frame_h+20], radius=60, fill=(0,0,0,80))
+    shadow = shadow.filter(ImageFilter.GaussianBlur(30))
+    canvas = Image.alpha_composite(canvas, shadow)
+    
+    draw = ImageDraw.Draw(canvas)
+    draw.rounded_rectangle([frame_x, frame_y, frame_x+frame_w, frame_y+frame_h], radius=60, fill=(240, 240, 245), outline=(200, 200, 210), width=4)
+    draw.rounded_rectangle([frame_x+10, frame_y+10, frame_x+frame_w-10, frame_y+frame_h-10], radius=50, fill=(20, 20, 20))
+    
+    ss_mask = Image.new('L', ss.size, 0)
+    ImageDraw.Draw(ss_mask).rounded_rectangle((0, 0, ss.size[0], ss.size[1]), radius=40, fill=255)
+    canvas.paste(ss, (frame_x + 20, frame_y + 20), ss_mask)
+    
+    # Text Drawing with Vertical Centering in the header area (0 to 350)
+    font = get_font(lang, 110)
+    wrapped_title = wrap_text(title_text, font, canvas.width - 160)
+    
+    # Measure text block
+    bbox = draw.multiline_textbbox((0, 0), wrapped_title, font=font, align="center")
+    text_h = bbox[3] - bbox[1]
+    
+    # Center vertically in the [0, 350] header space
+    header_center_y = 350 // 2
+    draw_y = header_center_y - (text_h // 2)
+    
+    draw.multiline_text((canvas.width // 2, draw_y), wrapped_title, font=font, fill=(40, 40, 50), anchor="ma", align="center", spacing=10)
+    return canvas
+
+def generate_localized_assets(lang, app_title):
+    output_dir = f"fastlane/metadata/android/{lang}/images"
+    screenshot_dir = os.path.join(output_dir, "phoneScreenshots")
+    os.makedirs(screenshot_dir, exist_ok=True)
+    
+    titles = get_titles(lang)
+    font_pano = get_font(lang, 160)
+    
+    # Panorama
+    wide_w, wide_h = 2160, 1920
+    wide_bg = generate_pattern_background(wide_w, wide_h)
+    try:
+        ss1 = Image.open("assets/raw_1.png").convert("RGBA")
+        ss1 = ss1.resize((1080, 2160), Image.Resampling.LANCZOS)
+    except:
+        ss1 = Image.new('RGBA', (1080, 2160), (200, 200, 200, 255))
+    
+    frame_w, frame_h = 1120, 2200
+    device_layer = Image.new('RGBA', (frame_w + 200, frame_h + 200), (0,0,0,0))
+    d_draw = ImageDraw.Draw(device_layer)
+    d_draw.rounded_rectangle([100, 100, 100+frame_w, 100+frame_h], radius=80, fill=(240,240,245), outline=(200, 200, 210), width=6)
+    d_draw.rounded_rectangle([110, 110, 100+frame_w-10, 100+frame_h-10], radius=70, fill=(20,20,20))
+    ss1_mask = Image.new('L', ss1.size, 0)
+    ImageDraw.Draw(ss1_mask).rounded_rectangle((0, 0, ss1.size[0], ss1.size[1]), radius=60, fill=255)
+    device_layer.paste(ss1, (120, 120), ss1_mask)
+    device_layer = device_layer.rotate(15, expand=True, resample=Image.Resampling.BICUBIC)
+    
+    paste_x, paste_y = (wide_w - device_layer.width)//2, (wide_h - device_layer.height)//2 + 250
+    shadow_layer = Image.new('RGBA', (wide_w, wide_h), (0,0,0,0))
+    shadow_layer.paste(device_layer, (paste_x + 30, paste_y + 30), device_layer)
+    shadow_layer = shadow_layer.filter(ImageFilter.GaussianBlur(30))
+    canvas = Image.alpha_composite(wide_bg.convert("RGBA"), shadow_layer)
+    canvas.paste(device_layer, (paste_x, paste_y), device_layer)
+    
+    draw = ImageDraw.Draw(canvas)
+    def draw_text_with_shadow(draw, pos, text, font, fill=(40,40,50), align="left"):
+        x, y = pos
+        anchor = "la" if align == "left" else "ra"
+        draw.text((x+4, y+4), text, font=font, fill=(255,255,255,150), anchor=anchor)
+        draw.text(pos, text, font=font, fill=fill, anchor=anchor)
+
+    # Panorama: Simple (Bottom Left), Fast (Top Right)
+    draw_text_with_shadow(draw, (150, wide_h - 350), titles[0], font=font_pano, align="left")
+    draw_text_with_shadow(draw, (wide_w - 150, 150), titles[1], font=font_pano, align="right")
+    
+    canvas.crop((0, 0, 1080, 1920)).convert("RGB").save(os.path.join(screenshot_dir, "1_panorama_left.png"))
+    canvas.crop((1080, 0, 2160, 1920)).convert("RGB").save(os.path.join(screenshot_dir, "2_panorama_right.png"))
+
+    # Features 3-6
+    for i in range(3, 7):
+        bg = generate_pattern_background(1080, 1920)
+        raw_idx = i - 2
+        final = create_framed_screenshot(f"assets/raw_{raw_idx}.png", bg, titles[i-1], lang)
+        final.convert("RGB").save(os.path.join(screenshot_dir, f"{i}_feature.png"))
+
+    # Feature Graphic
+    bg_fg = generate_pattern_background(1024, 500)
+    font_fg = get_font(lang, 75)
+    try:
+        ss1_fg = Image.open("assets/raw_1.png").convert("RGBA")
+        ss_w, ss_h = 240, 480
+        ss1_fg = ss1_fg.resize((ss_w, ss_h), Image.Resampling.LANCZOS)
+        frame_x, frame_y = 700, 50
+        shadow = Image.new('RGBA', (1024, 500), (0,0,0,0))
+        ImageDraw.Draw(shadow).rounded_rectangle([frame_x+10, frame_y+10, frame_x+250+10, frame_y+490+10], radius=30, fill=(0,0,0,100))
+        shadow = shadow.filter(ImageFilter.GaussianBlur(15))
+        bg_fg = Image.alpha_composite(bg_fg.convert("RGBA"), shadow)
+        draw_fg = ImageDraw.Draw(bg_fg)
+        draw_fg.rounded_rectangle([frame_x, frame_y, frame_x+260, frame_y+500], radius=30, fill=(240,240,245), outline=(200, 200, 210), width=3)
+        draw_fg.rounded_rectangle([frame_x+5, frame_y+5, frame_x+255, frame_y+495], radius=25, fill=(20,20,20))
+        ss_mask = Image.new('L', ss1_fg.size, 0)
+        ImageDraw.Draw(ss_mask).rounded_rectangle((0, 0, ss1_fg.size[0], ss1_fg.size[1]), radius=20, fill=255)
+        bg_fg.paste(ss1_fg, (frame_x+10, frame_y+10), ss_mask)
+    except: pass
+    
+    draw_fg = ImageDraw.Draw(bg_fg)
+    wrapped_app_title = wrap_text(app_title, font_fg, 550)
+    # Measure for vertical centering in graphic
+    bbox_fg = draw_fg.multiline_textbbox((0, 0), wrapped_app_title, font=font_fg)
+    fg_text_h = bbox_fg[3] - bbox_fg[1]
+    fg_draw_y = 250 - (fg_text_h // 2)
+    draw_fg.multiline_text((100, fg_draw_y), wrapped_app_title, font=font_fg, fill=(40,40,50), spacing=12)
+    bg_fg.convert("RGB").save(os.path.join(output_dir, "featureGraphic.png"))
+
+    if os.path.exists("assets/store/icon_512.png"):
+        shutil.copy("assets/store/icon_512.png", os.path.join(output_dir, "icon.png"))
+
+if __name__ == "__main__":
+    fastlane_base = "fastlane/metadata/android"
+    if not os.path.exists(fastlane_base):
+        print(f"Error: {fastlane_base} not found.")
+        exit(1)
+        
+    langs = [d for d in os.listdir(fastlane_base) if os.path.isdir(os.path.join(fastlane_base, d))]
+    total = len(langs)
+    
+    for idx, lang in enumerate(langs, 1):
+        lang_path = os.path.join(fastlane_base, lang)
+        title_file = os.path.join(lang_path, "title.txt")
+        if os.path.exists(title_file):
+            with open(title_file, "r") as f:
+                app_title = f.read().strip()
+            print(f"[{idx}/{total}] Generating assets for {lang} ({app_title})...")
+            generate_localized_assets(lang, app_title)
+            
+    print("Localized assets generation complete.")

@@ -1,0 +1,18 @@
+Transforme suas fotos em documentos PDF profissionais instantaneamente com o Image para PDF. Desenvolvido com foco total na sua privacidade, este aplicativo funciona inteiramente offline, garantindo que seus documentos sigilosos nunca saiam do seu dispositivo.
+
+Por que escolher o Image para PDF?
+• Conversão 100% Offline: Sem necessidade de internet. Seus dados permanecem protegidos no seu celular.
+• Privacidade Absoluta: O app não solicita permissão de internet, assegurando que nada seja rastreado.
+• Alta Qualidade: Gere PDFs nítidos, preservando a qualidade original das suas imagens.
+• Código Aberto (Open Source): Transparência total e confiabilidade garantida.
+• Sem Anúncios: Uma interface limpa para você focar no que importa.
+• Organização Personalizada: Reordene suas fotos facilmente para criar o documento na sequência perfeita.
+
+Seja para digitalizar recibos, organizar trabalhos escolares ou enviar documentos importantes, o Image para PDF oferece uma solução rápida, confiável e extremamente simples.
+
+Como funciona:
+1. Selecione as imagens da sua galeria ou capture novas com a câmera.
+2. Organize a ordem das fotos conforme sua necessidade.
+3. Toque em converter e salve seu PDF em segundos!
+
+Baixe agora e experimente a maneira mais segura de criar PDFs no seu Android.

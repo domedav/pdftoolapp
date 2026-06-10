@@ -1,0 +1,18 @@
+Transformez instantanément vos photos et images en documents PDF professionnels avec "Images en PDF". Conçue avec la confidentialité comme priorité absolue, cette application fonctionne entièrement hors ligne, garantissant que vos documents sensibles ne quittent jamais votre appareil.
+
+Caractéristiques principales :
+• Conversion Hors Ligne : Pas besoin de connexion internet. Vos données restent sur votre téléphone.
+• Confidentialité Totale : L'application ne demande aucune permission internet, garantissant une sécurité maximale.
+• Haute Qualité : Préservez la clarté de vos images dans le document final.
+• Open Source : Un logiciel transparent et digne de confiance grâce à son code source ouvert.
+• Sans Publicité : Une expérience fluide et propre, sans interruptions publicitaires.
+• Organisation Facile : Réorganisez vos images en toute simplicité avant de générer le PDF.
+
+Que vous ayez besoin d'envoyer des reçus, des devoirs scolaires ou des documents numérisés, Images en PDF offre une solution rapide et fiable sans compromettre votre vie privée.
+
+Comment ça marche :
+1. Sélectionnez des images de votre galerie ou prenez de nouvelles photos.
+2. Réorganisez-les si nécessaire.
+3. Appuyez sur convertir et enregistrez votre PDF.
+
+Téléchargez dès maintenant pour une création de documents sécurisée et sans effort !

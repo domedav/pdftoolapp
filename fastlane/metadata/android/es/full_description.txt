@@ -1,0 +1,18 @@
+Transforma tus fotos e imágenes en documentos PDF profesionales al instante con "Imagen a PDF". Diseñada con la privacidad como prioridad absoluta, esta aplicación funciona completamente fuera de línea, asegurando que tus documentos sensibles nunca salgan de tu dispositivo.
+
+Características principales:
+• Conversión Offline: Sin necesidad de internet. Tus datos permanecen en tu teléfono.
+• Privacidad Total: La app no solicita permisos de internet, garantizando máxima seguridad.
+• Alta Calidad: Mantiene la claridad de tus imágenes en el documento final.
+• Código Abierto (Open Source): Software transparente y confiable con código accesible para todos.
+• Sin Anuncios: Una experiencia limpia y rápida sin interrupciones publicitarias.
+• Reordenar y Organizar: Ajusta fácilmente el orden de tus imágenes antes de generar el PDF.
+
+Ya sea que necesites enviar recibos, tareas escolares o documentos escaneados, Imagen a PDF ofrece una solución rápida y confiable sin comprometer tu privacidad.
+
+Cómo funciona:
+1. Selecciona imágenes de tu galería o toma fotos nuevas.
+2. Reordénalas si es necesario.
+3. Pulsa convertir y guarda tu PDF.
+
+¡Descárgalo ahora para una creación de documentos segura y fluida!

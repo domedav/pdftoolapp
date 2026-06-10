@@ -1,11 +1,18 @@
-Image to PDF Maker is an open-source, privacy-first application designed to convert your photos and images into a single PDF document quickly and securely.
+Transform your photos and images into professional PDF documents instantly with Image to PDF Maker. Designed with privacy as a top priority, this app works entirely offline, ensuring your sensitive documents never leave your device.
 
 Key Features:
-- Ad-Free Experience: No interruptions, just functionality.
-- Privacy-Centric: Operates entirely offline with no internet permission required. Your data never leaves your device.
-- Intuitive Organization: Use drag-and-drop to reorder your images exactly how you want them.
-- Flexible Quality: Choose between Compact, Standard, or Best quality to balance file size and resolution.
-- Multi-Language Support: Available in over 20 languages.
-- Modern Design: Built using Jetpack Compose and Material 3 for a smooth, native Android experience.
+• Offline Conversion: No internet connection required. Your data stays on your phone.
+• Multiple Images: Select several photos from your gallery or use the camera to create a single PDF file.
+• High Quality: Maintain the clarity of your images in the final document.
+• Reorder & Organize: Easily arrange your images in the desired order before generating the PDF.
+• Simple & Modern: A clean, intuitive interface built with the latest Android standards.
+• Security First: Zero tracking, no ads, and no unnecessary permissions.
 
-Simple, honest, and functional.
+Whether you need to send receipts, school assignments, or scanned documents, Image to PDF Maker provides a fast and reliable solution without compromising your privacy.
+
+How it works:
+1. Select images from your gallery or take new photos.
+2. Reorder them if needed.
+3. Tap convert and save your PDF.
+
+Download now for a secure and seamless document creation experience.
