@@ -1,0 +1,5 @@
+Lançamento inicial de código aberto no GitHub e F-Droid.
+- Operação focada em privacidade, prioritariamente offline.
+- Reordene imagens com arrastar e soltar.
+- Múltiplas configurações de qualidade.
+- Experiência sem anúncios.

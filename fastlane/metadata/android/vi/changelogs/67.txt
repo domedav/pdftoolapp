@@ -1,0 +1,5 @@
+Bản phát hành mã nguồn mở đầu tiên trên GitHub và F-Droid.
+- Tập trung vào quyền riêng tư, ưu tiên hoạt động ngoại tuyến.
+- Sắp xếp lại hình ảnh bằng thao tác kéo và thả.
+- Nhiều tùy chọn cài đặt chất lượng.
+- Trải nghiệm không quảng cáo.

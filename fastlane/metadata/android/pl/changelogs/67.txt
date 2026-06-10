@@ -1,0 +1,5 @@
+Pierwsze wydanie open-source na GitHub i F-Droid.
+- Skoncentrowane na prywatności, działanie offline-first.
+- Zmiana kolejności obrazów za pomocą przeciągania i upuszczania.
+- Wiele ustawień jakości.
+- Brak reklam.

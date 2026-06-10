@@ -1,0 +1,5 @@
+Rilis sumber terbuka awal di GitHub dan F-Droid.
+- Operasi fokus privasi, mengutamakan luring (offline-first).
+- Urutkan ulang gambar dengan seret dan lepas.
+- Berbagai pengaturan kualitas.
+- Pengalaman bebas iklan.
