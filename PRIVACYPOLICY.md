@@ -13,7 +13,6 @@ We respect your privacy. The App is designed to perform image-to-pdf conversion 
 To provide its services, the App requires the following permissions:
 *   **Camera:** Used solely to allow you to take photos directly within the App to include them in your PDF. Photos are processed locally.
 *   **Media/File Access:** Used to allow you to select existing images from your gallery and to save the generated PDF files to your device's storage.
-*   **Internet:** The App does not require or use internet access for data transmission or tracking.
 
 ### 3. Third-Party Services
 The App does not use third-party analytics, advertising networks, or software development kits (SDKs) that collect user data.
