@@ -40,3 +40,6 @@ Thumbs.db
 /app/release/baselineProfiles/1/app-x86_64-release.dm
 /app/release/output-metadata.json
 /.kotlin/sessions/kotlin-compiler-17022969364029937023.salive
+
+# Google Play translations
+translate_gplay/
