@@ -32,3 +32,6 @@ Thumbs.db
 /build/
 
 # Google Play translations
+/upload_certificate.pem
+/fastlane/metadata/android/make_play_releasenotes.py
+/app/signing.properties

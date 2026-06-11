@@ -1,5 +1,7 @@
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.android.application)
@@ -9,6 +11,21 @@ plugins {
 android {
     namespace = "com.domedav.pdftool"
     compileSdk = 37
+
+    val signingProps = Properties()
+    val signingPropsFile = file("signing.properties")
+    if (signingPropsFile.exists()) {
+        signingProps.load(FileInputStream(signingPropsFile))
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(signingProps.getProperty("storeFile", ""))
+            storePassword = signingProps.getProperty("storePassword", "")
+            keyAlias = signingProps.getProperty("keyAlias", "")
+            keyPassword = signingProps.getProperty("keyPassword", "")
+        }
+    }
 
     defaultConfig {
         applicationId = "com.domedav.pdftool"
@@ -47,6 +64,8 @@ android {
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
+            
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
