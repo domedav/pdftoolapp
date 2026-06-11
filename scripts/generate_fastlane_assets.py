@@ -164,8 +164,12 @@ def generate_fastlane_icon():
             <path d="M64,20h12M64,26h12M64,32h12" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
           </g>
         </svg>"""
-        cairosvg.svg2png(bytestring=svg_foreground.encode('utf-8'), write_to=os.path.join(FASTLANE_DIR, "icon.png"), output_width=512, output_height=512)
-        print("Fastlane icon generated.")
+        png_data = cairosvg.svg2png(bytestring=svg_foreground.encode('utf-8'), output_width=512, output_height=512)
+        icon_img = Image.open(io.BytesIO(png_data)).convert("RGBA")
+        white_bg = Image.new("RGBA", icon_img.size, "WHITE")
+        final_icon = Image.alpha_composite(white_bg, icon_img)
+        final_icon.convert("RGB").save(os.path.join(FASTLANE_DIR, "icon.png"), "PNG")
+        print("Fastlane icon generated (with white background).")
     except ImportError:
         print("cairosvg not found, skipping icon generation.")
 
