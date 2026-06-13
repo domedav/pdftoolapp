@@ -1,4 +1,4 @@
-package com.domedav.pdftool.ui.theme
+package com.domedav.pdftoolapp.ui.theme
 
 import android.app.Activity
 import android.os.Build

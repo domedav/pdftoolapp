@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.domedav.pdftool"
+    namespace = "com.domedav.pdftoolapp"
     compileSdk = 37
 
     val signingProps = Properties()
@@ -28,7 +28,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.domedav.pdftool"
+        applicationId = "com.domedav.pdftoolapp"
         minSdk = 24
         targetSdk = 37
         

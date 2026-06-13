@@ -1,4 +1,4 @@
-package com.domedav.pdftool.ui.theme
+package com.domedav.pdftoolapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

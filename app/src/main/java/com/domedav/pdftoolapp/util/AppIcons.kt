@@ -1,9 +1,9 @@
-package com.domedav.pdftool.util
+package com.domedav.pdftoolapp.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import com.domedav.pdftool.R
+import com.domedav.pdftoolapp.R
 
 object AppIcons {
 

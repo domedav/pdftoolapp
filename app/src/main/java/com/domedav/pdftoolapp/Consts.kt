@@ -1,4 +1,4 @@
-package com.domedav.pdftool
+package com.domedav.pdftoolapp
 
 object Consts {
     // ezek az értékek nem %-ok, hanem a kép maximális szélessége/magassága pixelben.

@@ -1,4 +1,4 @@
-package com.domedav.pdftool
+package com.domedav.pdftoolapp
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,7 +26,7 @@ import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
-import com.domedav.pdftool.util.AppIcons
+import com.domedav.pdftoolapp.util.AppIcons
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -52,7 +52,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.FileProvider
 import coil3.compose.AsyncImage
-import com.domedav.pdftool.ui.theme.PdfToolTheme
+import com.domedav.pdftoolapp.ui.theme.PdfToolTheme
 import kotlinx.coroutines.*
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyGridState

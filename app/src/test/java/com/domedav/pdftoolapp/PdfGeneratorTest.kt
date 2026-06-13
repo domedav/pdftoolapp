@@ -1,4 +1,4 @@
-package com.domedav.pdftool
+package com.domedav.pdftoolapp
 
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue

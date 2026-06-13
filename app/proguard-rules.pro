@@ -14,7 +14,7 @@
 #-keep class sh.calvin.reorderable.** { *; }
 
 # App Code (Allow obfuscation, but explicitly keep the entry points)
-#-keep class com.domedav.pdftool.MainActivity { *; }
+#-keep class com.domedav.pdftoolapp.MainActivity { *; }
 
 # Common Android/Kotlin Attributes
 #-keepattributes *Annotation*
