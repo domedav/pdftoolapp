@@ -16,6 +16,7 @@ object AppIcons {
     @Composable fun AddPhotoAlternate(): ImageVector = getVectorResource(R.drawable.ic_add_photo_alternate)
     @Composable fun CameraAlt(): ImageVector = getVectorResource(R.drawable.ic_camera_alt)
     @Composable fun ChevronRight(): ImageVector = getVectorResource(R.drawable.ic_chevron_right)
+    @Composable fun Check(): ImageVector = getVectorResource(R.drawable.ic_check)
     @Composable fun Close(): ImageVector = getVectorResource(R.drawable.ic_close)
     @Composable fun HighQuality(): ImageVector = getVectorResource(R.drawable.ic_high_quality)
     @Composable fun Info(): ImageVector = getVectorResource(R.drawable.ic_info)

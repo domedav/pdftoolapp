@@ -26,7 +26,7 @@ object PdfGenerator {
     private const val PAGE_HEIGHT = 1684
     private const val MAX_IMAGE_DIMENSION = 2048
 
-    fun generatePdf(context: Context, imageUris: List<Uri>): File {
+    fun generatePdf(context: Context, imageUris: List<Uri>, qualityIndex: Int): File {
         val pdfFile = createPdfFile(context)
         val pdfDocument = PdfDocument()
         val paint = Paint().apply { isFilterBitmap = true } // Szebb skálázás
@@ -34,7 +34,8 @@ object PdfGenerator {
         try {
             for ((index, uri) in imageUris.withIndex()) {
                 try {
-                    val bitmap = getScaledBitmapFromUri(context, uri, MAX_IMAGE_DIMENSION) ?: continue
+                    val maxDimension = Consts.QUALITY_VALUES.getOrNull(qualityIndex) ?: MAX_IMAGE_DIMENSION
+                    val bitmap = getScaledBitmapFromUri(context, uri, maxDimension) ?: continue
                     
                     // Oldal létrehozása fix A4 méretben
                     val pageInfo = PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, index + 1).create()
@@ -111,8 +112,25 @@ object PdfGenerator {
                 inJustDecodeBounds = false
                 inSampleSize = inSampleSize
             }
-            context.contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
+            val decoded = context.contentResolver.openFileDescriptor(uri, "r")?.use { pfd ->
                 BitmapFactory.decodeFileDescriptor(pfd.fileDescriptor, null, finalOptions)
+            } ?: return null
+
+            // Scale precisely if it exceeds maxDimension
+            val width = decoded.width
+            val height = decoded.height
+            val maxDim = maxOf(width, height)
+            if (maxDim > maxDimension) {
+                val scale = maxDimension.toFloat() / maxDim
+                val targetW = (width * scale).toInt().coerceAtLeast(1)
+                val targetH = (height * scale).toInt().coerceAtLeast(1)
+                val scaled = Bitmap.createScaledBitmap(decoded, targetW, targetH, true)
+                if (scaled != decoded) {
+                    decoded.recycle()
+                }
+                scaled
+            } else {
+                decoded
             }
         } catch (e: Exception) { null }
     }

@@ -1,5 +1,6 @@
 package com.domedav.pdftoolapp
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -29,5 +30,35 @@ class PdfGeneratorTest {
         }
         assertTrue(testDir.exists())
         testDir.deleteRecursively()
+    }
+
+    @Test
+    fun testQualityIndexMapping() {
+        // Assert quality settings mapped to dimensions
+        assertEquals(3, Consts.QUALITY_VALUES.size)
+        assertEquals(480, Consts.QUALITY_VALUES[0])
+        assertEquals(720, Consts.QUALITY_VALUES[1])
+        assertEquals(1920, Consts.QUALITY_VALUES[2])
+    }
+
+    @Test
+    fun testMaxDimensionLookupLogic() {
+        val defaultMaxDim = 2048
+        
+        // Compact (Low)
+        val lowDim = Consts.QUALITY_VALUES.getOrNull(0) ?: defaultMaxDim
+        assertEquals(480, lowDim)
+
+        // Standard (Medium)
+        val medDim = Consts.QUALITY_VALUES.getOrNull(1) ?: defaultMaxDim
+        assertEquals(720, medDim)
+
+        // Best (High)
+        val highDim = Consts.QUALITY_VALUES.getOrNull(2) ?: defaultMaxDim
+        assertEquals(1920, highDim)
+
+        // Out of bounds fallback
+        val fallbackDim = Consts.QUALITY_VALUES.getOrNull(99) ?: defaultMaxDim
+        assertEquals(defaultMaxDim, fallbackDim)
     }
 }

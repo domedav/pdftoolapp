@@ -155,6 +155,7 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
     var selectedQualityIndex by rememberSaveable { mutableStateOf(1) }
     
     var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
+    var activeCropImage by remember { mutableStateOf<SelectedImage?>(null) }
 
     val pickMultipleLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
         if (uris.isNotEmpty()) {
@@ -164,7 +165,9 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
 
     val cameraLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture()) { success ->
         if (success && tempCameraUri != null) {
-            selectedImages = selectedImages + SelectedImage(id = UUID.randomUUID().toString(), uri = tempCameraUri!!)
+            val newImg = SelectedImage(id = UUID.randomUUID().toString(), uri = tempCameraUri!!)
+            selectedImages = selectedImages + newImg
+            activeCropImage = newImg
         }
         tempCameraUri = null 
     }
@@ -212,7 +215,7 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                                 try {
                                     PdfGenerator.cleanup(context)
                                     val pdfFile = withContext(Dispatchers.IO) { 
-                                        PdfGenerator.generatePdf(context, selectedImages.map { it.uri }) 
+                                        PdfGenerator.generatePdf(context, selectedImages.map { it.uri }, selectedQualityIndex) 
                                     }
                                     val elapsed = System.currentTimeMillis() - startTime
                                     if (elapsed < 2000) delay(2000 - elapsed)
@@ -299,9 +302,19 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                         Column(modifier = Modifier.fillMaxWidth()) {
                             Spacer(Modifier.height(24.dp))
                             StepHeader(stringResource(R.string.step_label_2), AppIcons.LowPriority())
-                            ReorderableImageGrid(selectedImages, onRemove = { i -> haptic.performHapticFeedback(HapticFeedbackType.LongPress); selectedImages = selectedImages.filterIndexed { idx, _ -> idx != i } }, onReorder = { from, to ->
-                                selectedImages = selectedImages.toMutableList().apply { add(to, removeAt(from)) }
-                            })
+                            ReorderableImageGrid(
+                                 images = selectedImages,
+                                 onRemove = { i -> 
+                                     haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                     selectedImages = selectedImages.filterIndexed { idx, _ -> idx != i } 
+                                 },
+                                 onReorder = { from, to ->
+                                     selectedImages = selectedImages.toMutableList().apply { add(to, removeAt(from)) }
+                                 },
+                                 onImageClick = { img ->
+                                     activeCropImage = img
+                                 }
+                             )
 
                             Spacer(Modifier.height(16.dp))
                             StepHeader(stringResource(R.string.step_label_3), AppIcons.HighQuality())
@@ -335,6 +348,25 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                             if (measuredHeightPx == 0) measuredHeightPx = it.height 
                         }
                 )
+            }
+
+            activeCropImage?.let { img ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .zIndex(100f)
+                ) {
+                    CropScreen(
+                        imageUri = img.uri,
+                        onCancel = { activeCropImage = null },
+                        onDone = { croppedUri ->
+                            selectedImages = selectedImages.map {
+                                if (it.id == img.id) it.copy(uri = croppedUri) else it
+                            }
+                            activeCropImage = null
+                        }
+                    )
+                }
             }
         }
     }
@@ -424,8 +456,14 @@ fun ExpressiveActionCard(modifier: Modifier, icon: androidx.compose.ui.graphics.
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReorderableImageGrid(images: List<SelectedImage>, onRemove: (Int) -> Unit, onReorder: (Int, Int) -> Unit) {
+fun ReorderableImageGrid(
+    images: List<SelectedImage>,
+    onRemove: (Int) -> Unit,
+    onReorder: (Int, Int) -> Unit,
+    onImageClick: (SelectedImage) -> Unit
+) {
     val gridState = rememberLazyGridState()
     val reorderableState = rememberReorderableLazyGridState(gridState) { from, to ->
         onReorder(from.index, to.index)
@@ -444,7 +482,11 @@ fun ReorderableImageGrid(images: List<SelectedImage>, onRemove: (Int) -> Unit, o
             ReorderableItem(reorderableState, key = item.id) { isDragging ->
                 val scale by animateFloatAsState(if (isDragging) 1.1f else 1f, label = "gridScale")
                 Box(modifier = Modifier.aspectRatio(1f).scale(scale).longPressDraggableHandle()) {
-                    ElevatedCard(modifier = Modifier.fillMaxSize(), shape = MaterialTheme.shapes.large) {
+                    ElevatedCard(
+                        onClick = { onImageClick(item) },
+                        modifier = Modifier.fillMaxSize(),
+                        shape = MaterialTheme.shapes.large
+                    ) {
                         AsyncImage(item.uri, null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                     }
                     FilledIconButton(onClick = { onRemove(index) }, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(28.dp), colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.error)) {
