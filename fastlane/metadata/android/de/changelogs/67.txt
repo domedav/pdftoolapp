@@ -1,5 +1,0 @@
-Erste Open-Source-Veröffentlichung auf GitHub und F-Droid.
-- Fokus auf Privatsphäre, Offline-Betrieb steht an erster Stelle.
-- Bilder per Drag-and-Drop neu anordnen.
-- Mehrere Qualitätseinstellungen.
-- Werbefreies Erlebnis.

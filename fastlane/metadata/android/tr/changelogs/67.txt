@@ -1,5 +1,0 @@
-GitHub ve F-Droid'de ilk açık kaynaklı sürüm.
-- Gizlilik odaklı, öncelikle çevrimdışı çalışma.
-- Sürükle ve bırak ile görselleri yeniden sıralayın.
-- Birden fazla kalite ayarı.
-- Reklamsız deneyim.

@@ -1,5 +1,0 @@
-Initial open-source release on GitHub and F-Droid.
-- Privacy-focused, offline-first operation.
-- Reorder images with drag and drop.
-- Multiple quality settings.
-- Ad-free experience.

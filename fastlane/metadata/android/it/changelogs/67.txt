@@ -1,5 +1,0 @@
-Versione iniziale open-source su GitHub e F-Droid.
-- Funzionamento incentrato sulla privacy, offline-first.
-- Riordina le immagini con trascinamento e rilascio.
-- Diverse impostazioni di qualità.
-- Esperienza senza pubblicità.

@@ -1,5 +1,0 @@
-Första versionen med öppen källkod på GitHub och F-Droid.
-- Integritetsfokuserad, offline-först-drift.
-- Ändra ordning på bilder med dra och släpp.
-- Flera kvalitetsinställningar.
-- Annonsfri upplevelse.
