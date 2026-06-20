@@ -652,7 +652,7 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                         Spacer(Modifier.width(2.dp))
                         ExpressiveActionCard(Modifier.weight(1f), AppIcons.Share(), stringResource(R.string.share), MaterialTheme.colorScheme.secondaryContainer, RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 28.dp, bottomEnd = 28.dp)) { sharePdf(context, pdfFile) }
                     }
-                    ExpressiveActionCard(Modifier.weight(1f), AppIcons.Add(), stringResource(R.string.create_new), MaterialTheme.colorScheme.primaryContainer, MaterialTheme.shapes.extraLarge) {
+                    ExpressiveActionCard(Modifier.weight(1f), AppIcons.Add(), stringResource(R.string.create_new), MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.shapes.extraLarge) {
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress); onBack()
                     }
                 }
@@ -701,9 +701,9 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                 tonalElevation = 10.dp,
                 shadowElevation = 10.dp
             ) {
-                // Dynamic alignment: center perfectly if only 1 page (no scroll), pin to top if multiple pages (preserve scroll physics)
-                val boxAlignment = if (pdfPages.size == 1) Alignment.Center else Alignment.TopCenter
-                val origin = if (pdfPages.size == 1) TransformOrigin(0.5f, 0.5f) else TransformOrigin(0.5f, 0f)
+                // Always use Center alignment to create a cinematic morph anchored around the middle of the screen
+                val boxAlignment = Alignment.Center
+                val origin = TransformOrigin(0.5f, 0.5f)
 
                 Box(Modifier.fillMaxSize(), contentAlignment = boxAlignment) {
                     if (pdfPages.isNotEmpty()) {
