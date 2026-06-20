@@ -31,4 +31,12 @@
     <string name="scroll_hint">スクロールしてすべてのページを表示</string>
     <string name="back">戻る</string>
     <string name="page_count">%1$d ページ</string>
+
+    <string name="crop_cancel">キャンセル</string>
+    <string name="crop_save">保存</string>
+    <string name="crop_title">画像を切り抜き</string>
+    <string name="crop_instructions">4つの角をドラッグして切り抜き、パースを調整します。</string>
+    <string name="crop_reset">リセット</string>
+    <string name="crop_saving_title">変更を適用しています...</string>
+    <string name="crop_saving_message">画像の処理が完了するまでしばらくお待ちください。</string>
 </resources>

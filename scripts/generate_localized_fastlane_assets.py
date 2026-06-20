@@ -10,8 +10,8 @@ FONT_PATH_DEFAULT = "assets/Roboto-Bold.ttf"
 FONTS = {
     "hi": "/usr/share/fonts/google-noto-vf/NotoSansDevanagari[wght].ttf",
     "ja": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
-    "zh-rCN": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
-    "zh-rTW": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "zh-CN": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
+    "zh-TW": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
     "ko": "/usr/share/fonts/google-noto-sans-cjk-vf-fonts/NotoSansCJK-VF.ttc",
     "ar": "/usr/share/fonts/google-noto-vf/NotoSansArabic[wght].ttf",
     "th": "/usr/share/fonts/gnu-freefont/FreeSansBold.otf",
@@ -34,15 +34,15 @@ LOCALIZED_SCREENSHOT_TITLES = {
     "ko": ["간편함", "초고속 변환", "무제한 사진", "완벽한 정렬", "최적화된 용량", "순식간에 완료"],
     "nl": ["Eenvoudig", "Razendsnel", "Onbeperkt foto's", "Perfecte volgorde", "Geoptimaliseerd formaat", "Klaar in seconden"],
     "pl": ["Prostota", "Szybkość", "Nielimitowane zdjęcia", "Idealna kolejność", "Optymalny rozmiar", "Gotowe w kilka sekund"],
-    "pt-rBR": ["Simples.", "Rápido.", "Fotos ilimitadas", "Ordem perfeita", "Tamanho otimizado", "Pronto em segundos"],
+    "pt-BR": ["Simples.", "Rápido.", "Fotos ilimitadas", "Ordem perfeita", "Tamanho otimizado", "Pronto em segundos"],
     "ru": ["Просто.", "Быстро.", "Безлимит фото", "Идеальный порядок", "Оптимальный размер", "Готово за секунды"],
     "sv": ["Enkelt.", "Snabbt.", "Obegränsat med foton", "Perfekt ordning", "Optimerad storlek", "Klart på sekunder"],
     "th": ["เรียบง่าย", "รวดเร็ว", "ไม่จำกัดจำนวนรูป", "จัดเรียงได้ดั่งใจ", "ขนาดไฟล์เหมาะสม", "เสร็จไวในไม่กี่วินาที"],
     "tr": ["Basit.", "Hızlı.", "Sınırsız Fotoğraf", "Kusursuz Düzen", "Optimize Boyut", "Saniyeler İçinde"],
     "uk": ["Просто.", "Швидко.", "Безліч фото", "Ідеальний порядок", "Оптимальний розмір", "Готово за секунди"],
     "vi": ["Đơn giản.", "Nhanh chóng.", "Ảnh không giới hạn", "Sắp xếp hoàn hảo", "Kích thước tối ưu", "Xong trong tích tắc"],
-    "zh-rCN": ["极简。", "极速。", "照片不限数量", "完美排序", "优化体积", "秒级完成"],
-    "zh-rTW": ["極簡。", "極速。", "相片無限制", "完美排序", "最佳化體積", "秒級完成"]
+    "zh-CN": ["极简。", "极速。", "照片不限数量", "完美排序", "优化体积", "秒级完成"],
+    "zh-TW": ["極簡。", "極速。", "相片無限制", "完美排序", "最佳化體積", "秒級完成"]
 }
 
 DEFAULT_TITLES = LOCALIZED_SCREENSHOT_TITLES["en-US"]

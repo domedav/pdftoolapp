@@ -31,4 +31,12 @@
     <string name="scroll_hint">Przewiń, aby zobaczyć wszystkie strony</string>
     <string name="back">Wstecz</string>
     <string name="page_count">%1$d stron</string>
+
+    <string name="crop_cancel">Anuluj</string>
+    <string name="crop_save">Zapisz</string>
+    <string name="crop_title">Kadruj obraz</string>
+    <string name="crop_instructions">Przeciągnij 4 rogi, aby skadrować i dostosować perspektywę.</string>
+    <string name="crop_reset">Resetuj</string>
+    <string name="crop_saving_title">Wprowadzanie zmian...</string>
+    <string name="crop_saving_message">Poczekaj chwilę, trwa przetwarzanie obrazu.</string>
 </resources>

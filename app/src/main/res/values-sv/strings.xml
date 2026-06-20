@@ -31,4 +31,12 @@
     <string name="scroll_hint">Bläddra för att se alla sidor</string>
     <string name="back">Tillbaka</string>
     <string name="page_count">%1$d sidor</string>
+
+    <string name="crop_cancel">Avbryt</string>
+    <string name="crop_save">Spara</string>
+    <string name="crop_title">Beskär bild</string>
+    <string name="crop_instructions">Dra de 4 hörnen för att beskära och justera perspektivet.</string>
+    <string name="crop_reset">Återställ</string>
+    <string name="crop_saving_title">Tillämpar ändringar...</string>
+    <string name="crop_saving_message">Vänta ett ögonblick medan vi bearbetar din bild.</string>
 </resources>

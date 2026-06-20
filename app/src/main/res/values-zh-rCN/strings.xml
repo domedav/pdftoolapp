@@ -31,4 +31,12 @@
     <string name="scroll_hint">滚动查看所有页面</string>
     <string name="back">返回</string>
     <string name="page_count">%1$d 页</string>
+
+    <string name="crop_cancel">取消</string>
+    <string name="crop_save">保存</string>
+    <string name="crop_title">裁剪图片</string>
+    <string name="crop_instructions">拖动4个角进行裁剪并调整透视。</string>
+    <string name="crop_reset">重置</string>
+    <string name="crop_saving_title">正在应用更改...</string>
+    <string name="crop_saving_message">我们正在处理您的图片，请稍候。</string>
 </resources>

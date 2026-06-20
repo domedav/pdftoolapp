@@ -36,4 +36,12 @@
     <string name="scroll_hint">Görgess az összes oldal megtekintéséhez</string>
     <string name="back">Vissza</string>
     <string name="page_count">%1$d oldal</string>
+
+    <string name="crop_cancel">Mégse</string>
+    <string name="crop_save">Mentés</string>
+    <string name="crop_title">Kép vágása</string>
+    <string name="crop_instructions">Húzd a 4 sarkot a vágáshoz és perspektíva javításhoz.</string>
+    <string name="crop_reset">Visszaállítás</string>
+    <string name="crop_saving_title">Változtatások alkalmazása...</string>
+    <string name="crop_saving_message">Kérjük, várjon egy pillanatot, amíg feldolgozzuk a képét.</string>
 </resources>

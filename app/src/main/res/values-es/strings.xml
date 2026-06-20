@@ -31,4 +31,12 @@
     <string name="scroll_hint">Desplázate para ver todas las páginas</string>
     <string name="back">Atrás</string>
     <string name="page_count">%1$d páginas</string>
+
+    <string name="crop_cancel">Cancelar</string>
+    <string name="crop_save">Guardar</string>
+    <string name="crop_title">Recortar imagen</string>
+    <string name="crop_instructions">Arrastra las 4 esquinas para recortar y ajustar la perspectiva.</string>
+    <string name="crop_reset">Restablecer</string>
+    <string name="crop_saving_title">Aplicando cambios...</string>
+    <string name="crop_saving_message">Por favor, espere un momento mientras procesamos su imagen.</string>
 </resources>

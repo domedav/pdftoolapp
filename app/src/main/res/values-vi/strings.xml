@@ -31,4 +31,12 @@
     <string name="scroll_hint">Cuộn để xem tất cả các trang</string>
     <string name="back">Quay lại</string>
     <string name="page_count">%1$d trang</string>
+
+    <string name="crop_cancel">Hủy</string>
+    <string name="crop_save">Lưu</string>
+    <string name="crop_title">Cắt ảnh</string>
+    <string name="crop_instructions">Kéo 4 góc để cắt và điều chỉnh phối cảnh.</string>
+    <string name="crop_reset">Đặt lại</string>
+    <string name="crop_saving_title">Đang áp dụng thay đổi...</string>
+    <string name="crop_saving_message">Vui lòng đợi một lát trong khi chúng tôi xử lý hình ảnh của bạn.</string>
 </resources>

@@ -31,4 +31,12 @@
     <string name="scroll_hint">Scroll om alle pagina\'s te zien</string>
     <string name="back">Terug</string>
     <string name="page_count">%1$d pagina\'s</string>
+
+    <string name="crop_cancel">Annuleren</string>
+    <string name="crop_save">Opslaan</string>
+    <string name="crop_title">Afbeelding bijsnijden</string>
+    <string name="crop_instructions">Sleep de 4 hoeken om bij te snijden en het perspectief aan te passen.</string>
+    <string name="crop_reset">Herstellen</string>
+    <string name="crop_saving_title">Wijzigingen toepassen...</string>
+    <string name="crop_saving_message">Even geduld terwijl we je afbeelding verwerken.</string>
 </resources>

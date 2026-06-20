@@ -61,17 +61,59 @@ import java.io.File
 import java.util.UUID
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.geometry.Offset
 
 sealed class Screen {
     data object Main : Screen()
     data class Success(val pdfFile: File, val isRestored: Boolean) : Screen()
+    data class Crop(val selectedImage: SelectedImage) : Screen()
 }
 
-data class SelectedImage(val id: String, val uri: Uri)
+data class SelectedImage(
+    val id: String,
+    val originalUri: Uri,
+    val croppedUri: Uri? = null,
+    val cropPoints: List<Offset>? = null
+)
+
+fun serializePoints(points: List<Offset>?): String {
+    if (points == null) return ""
+    return points.joinToString(";") { "${it.x},${it.y}" }
+}
+
+fun deserializePoints(str: String): List<Offset>? {
+    if (str.isEmpty()) return null
+    return try {
+        str.split(";").map {
+            val parts = it.split(",")
+            Offset(parts[0].toFloat(), parts[1].toFloat())
+        }
+    } catch (e: Exception) {
+        null
+    }
+}
 
 val SelectedImageListSaver = listSaver<List<SelectedImage>, String>(
-    save = { list -> list.flatMap { listOf(it.id, it.uri.toString()) } },
-    restore = { list -> list.chunked(2).map { SelectedImage(it[0], Uri.parse(it[1])) } }
+    save = { list ->
+        list.flatMap { img ->
+            listOf(
+                img.id,
+                img.originalUri.toString(),
+                img.croppedUri?.toString() ?: "",
+                serializePoints(img.cropPoints)
+            )
+        }
+    },
+    restore = { list ->
+        list.chunked(4).map { chunk ->
+            SelectedImage(
+                id = chunk[0],
+                originalUri = Uri.parse(chunk[1]),
+                croppedUri = if (chunk[2].isEmpty()) null else Uri.parse(chunk[2]),
+                cropPoints = deserializePoints(chunk[3])
+            )
+        }
+    }
 )
 
 class MainActivity : ComponentActivity() {
@@ -87,12 +129,19 @@ class MainActivity : ComponentActivity() {
             PdfToolTheme {
                 val context = LocalContext.current
                 var currentScreen by remember { mutableStateOf<Screen>(restoreState(context)) }
+                var selectedImages by rememberSaveable(stateSaver = SelectedImageListSaver) { mutableStateOf<List<SelectedImage>>(emptyList()) }
+                var selectedQualityIndex by rememberSaveable { mutableStateOf(1) }
 
                 LaunchedEffect(currentScreen) { saveState(context, currentScreen) }
 
                 Crossfade(targetState = currentScreen, animationSpec = tween(500), label = "ScreenTransition") { screen ->
                     when (screen) {
                         is Screen.Main -> MainScreen(
+                            selectedImages = selectedImages,
+                            onSelectedImagesChange = { selectedImages = it },
+                            selectedQualityIndex = selectedQualityIndex,
+                            onSelectedQualityIndexChange = { selectedQualityIndex = it },
+                            onCropImage = { currentScreen = Screen.Crop(it) },
                             onPdfCreated = { currentScreen = Screen.Success(it, false) },
                             canClick = { debounceClick() }
                         )
@@ -102,11 +151,26 @@ class MainActivity : ComponentActivity() {
                             onBack = { 
                                 if (debounceClick()) { 
                                     PdfGenerator.cleanup(context)
+                                    selectedImages = emptyList()
                                     currentScreen = Screen.Main
                                     clearState(context) 
                                 } 
                             },
                             canClick = { debounceClick() }
+                        )
+                        is Screen.Crop -> CropScreen(
+                            imageUri = screen.selectedImage.originalUri,
+                            initialPoints = screen.selectedImage.cropPoints,
+                            onCancel = { currentScreen = Screen.Main },
+                            onDone = { croppedUri, cropPoints ->
+                                selectedImages = selectedImages.map {
+                                    if (it.id == screen.selectedImage.id) it.copy(
+                                        croppedUri = croppedUri,
+                                        cropPoints = cropPoints
+                                    ) else it
+                                }
+                                currentScreen = Screen.Main
+                            }
                         )
                     }
                 }
@@ -145,29 +209,33 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("LocalContextGetResourceValueCall")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
-fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
+fun MainScreen(
+    selectedImages: List<SelectedImage>,
+    onSelectedImagesChange: (List<SelectedImage>) -> Unit,
+    selectedQualityIndex: Int,
+    onSelectedQualityIndexChange: (Int) -> Unit,
+    onCropImage: (SelectedImage) -> Unit,
+    onPdfCreated: (File) -> Unit,
+    canClick: () -> Boolean
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val haptic = LocalHapticFeedback.current
 
-    var selectedImages by rememberSaveable(stateSaver = SelectedImageListSaver) { mutableStateOf<List<SelectedImage>>(emptyList()) }
     var isLoading by rememberSaveable { mutableStateOf(false) }
-    var selectedQualityIndex by rememberSaveable { mutableStateOf(1) }
-    
     var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
-    var activeCropImage by remember { mutableStateOf<SelectedImage?>(null) }
 
     val pickMultipleLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
         if (uris.isNotEmpty()) {
-            selectedImages = selectedImages + uris.map { SelectedImage(id = UUID.randomUUID().toString(), uri = it) }
+            onSelectedImagesChange(selectedImages + uris.map { SelectedImage(id = UUID.randomUUID().toString(), originalUri = it) })
         }
     }
 
     val cameraLauncher = rememberLauncherForActivityResult(contract = ActivityResultContracts.TakePicture()) { success ->
         if (success && tempCameraUri != null) {
-            val newImg = SelectedImage(id = UUID.randomUUID().toString(), uri = tempCameraUri!!)
-            selectedImages = selectedImages + newImg
-            activeCropImage = newImg
+            val newImg = SelectedImage(id = UUID.randomUUID().toString(), originalUri = tempCameraUri!!)
+            onSelectedImagesChange(selectedImages + newImg)
+            onCropImage(newImg)
         }
         tempCameraUri = null 
     }
@@ -215,7 +283,7 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                                 try {
                                     PdfGenerator.cleanup(context)
                                     val pdfFile = withContext(Dispatchers.IO) { 
-                                        PdfGenerator.generatePdf(context, selectedImages.map { it.uri }, selectedQualityIndex) 
+                                        PdfGenerator.generatePdf(context, selectedImages.map { it.croppedUri ?: it.originalUri }, selectedQualityIndex) 
                                     }
                                     val elapsed = System.currentTimeMillis() - startTime
                                     if (elapsed < 2000) delay(2000 - elapsed)
@@ -306,19 +374,19 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                                  images = selectedImages,
                                  onRemove = { i -> 
                                      haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                                     selectedImages = selectedImages.filterIndexed { idx, _ -> idx != i } 
+                                     onSelectedImagesChange(selectedImages.filterIndexed { idx, _ -> idx != i }) 
                                  },
                                  onReorder = { from, to ->
-                                     selectedImages = selectedImages.toMutableList().apply { add(to, removeAt(from)) }
+                                     onSelectedImagesChange(selectedImages.toMutableList().apply { add(to, removeAt(from)) })
                                  },
                                  onImageClick = { img ->
-                                     activeCropImage = img
+                                     onCropImage(img)
                                  }
                              )
 
                             Spacer(Modifier.height(16.dp))
                             StepHeader(stringResource(R.string.step_label_3), AppIcons.HighQuality())
-                            QualityPicker(selectedQualityIndex) { haptic.performHapticFeedback(HapticFeedbackType.LongPress); selectedQualityIndex = it }
+                            QualityPicker(selectedQualityIndex) { haptic.performHapticFeedback(HapticFeedbackType.LongPress); onSelectedQualityIndexChange(it) }
                         }
                     } else {
                         Box(Modifier.fillMaxWidth().padding(top = 60.dp), contentAlignment = Alignment.Center) {
@@ -348,25 +416,6 @@ fun MainScreen(onPdfCreated: (File) -> Unit, canClick: () -> Boolean) {
                             if (measuredHeightPx == 0) measuredHeightPx = it.height 
                         }
                 )
-            }
-
-            activeCropImage?.let { img ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .zIndex(100f)
-                ) {
-                    CropScreen(
-                        imageUri = img.uri,
-                        onCancel = { activeCropImage = null },
-                        onDone = { croppedUri ->
-                            selectedImages = selectedImages.map {
-                                if (it.id == img.id) it.copy(uri = croppedUri) else it
-                            }
-                            activeCropImage = null
-                        }
-                    )
-                }
             }
         }
     }
@@ -487,7 +536,7 @@ fun ReorderableImageGrid(
                         modifier = Modifier.fillMaxSize(),
                         shape = MaterialTheme.shapes.large
                     ) {
-                        AsyncImage(item.uri, null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+                        AsyncImage(item.croppedUri ?: item.originalUri, null, modifier = Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
                     }
                     FilledIconButton(onClick = { onRemove(index) }, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp).size(28.dp), colors = IconButtonDefaults.filledIconButtonColors(containerColor = MaterialTheme.colorScheme.error)) {
                         Icon(AppIcons.Close(), null, modifier = Modifier.size(18.dp))
@@ -505,7 +554,15 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
     val haptic = LocalHapticFeedback.current
     
     var isExpanded by remember { mutableStateOf(false) }
+    val previewListState = rememberLazyListState()
     var pdfPages by remember { mutableStateOf<List<Bitmap>>(emptyList()) }
+    
+    val currentVisiblePageIndex by remember {
+        derivedStateOf {
+            if (pdfPages.isEmpty()) 0 
+            else previewListState.firstVisibleItemIndex.coerceIn(0, pdfPages.lastIndex)
+        }
+    }
     
     val expandProgress by animateFloatAsState(
         targetValue = if (isExpanded) 1f else 0f,
@@ -569,6 +626,12 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
     LaunchedEffect(pdfFile) {
         pdfPages = withContext(Dispatchers.IO) { PdfGenerator.renderPreviewPages(context, pdfFile) }
         //if (!isRestored) sharePdf(context, pdfFile)
+    }
+
+    LaunchedEffect(isExpanded) {
+        if (!isExpanded && pdfPages.isNotEmpty()) {
+            previewListState.scrollToItem(currentVisiblePageIndex)
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -643,16 +706,27 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                 tonalElevation = 10.dp,
                 shadowElevation = 10.dp
             ) {
-                Box(Modifier.fillMaxSize()) {
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
                     if (pdfPages.isNotEmpty()) {
-                        if (isExpanded) {
+                        // UNIFORM scale to completely preserve aspect ratio!
+                        val scale = animatedWidth / expandedWidth
+                        
+                        Box(
+                            modifier = Modifier
+                                .requiredSize(expandedWidth, expandedHeight)
+                                .graphicsLayer {
+                                    this.scaleX = scale
+                                    this.scaleY = scale
+                                    this.transformOrigin = TransformOrigin(0.5f, 0f) // Scale from the top
+                                }
+                        ) {
                             Column(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .systemBarsPadding()
                             ) {
                                 Row(
-                                    Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface).padding(8.dp),
+                                    Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface).padding(8.dp).graphicsLayer { alpha = expandProgress },
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
@@ -667,9 +741,11 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                 }
 
                                 LazyColumn(
+                                    state = previewListState,
                                     modifier = Modifier.weight(1f).fillMaxWidth(),
                                     contentPadding = PaddingValues(16.dp),
-                                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                                    userScrollEnabled = isExpanded
                                 ) {
                                     items(pdfPages) { bitmap ->
                                         Image(
@@ -685,25 +761,25 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                     item { Spacer(Modifier.height(32.dp)) }
                                 }
                             }
-                        } else {
-                            Box(Modifier.matchParentSize(), contentAlignment = Alignment.Center) {
-                                Image(
-                                    bitmap = pdfPages.first().asImageBitmap(),
-                                    contentDescription = null,
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentScale = ContentScale.Crop
-                                )
-
+                            
+                            // Collapsed preview hint overlay
+                            if (expandProgress < 1f) {
                                 Surface(
-                                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 16.dp),
+                                    // Pinned slightly higher so it's always visible within the cropped height
+                                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = expandedHeight * 0.4f).graphicsLayer { 
+                                        alpha = 1f - expandProgress 
+                                        // Reverse scale so the button doesn't shrink!
+                                        this.scaleX = 1f / scale
+                                        this.scaleY = 1f / scale
+                                    },
                                     shape = CircleShape,
                                     color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
                                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                                 ) {
-                                    Row(Modifier.padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Icon(AppIcons.OpenInNew(), null, modifier = Modifier.size(14.dp))
-                                        Spacer(Modifier.width(6.dp))
-                                        Text(stringResource(R.string.preview_hint), style = MaterialTheme.typography.labelMedium, fontWeight = FontWeight.Bold)
+                                    Row(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                                        Icon(AppIcons.OpenInNew(), null, modifier = Modifier.size(20.dp))
+                                        Spacer(Modifier.width(8.dp))
+                                        Text(stringResource(R.string.preview_hint), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                     }
                                 }
                             }

@@ -31,4 +31,12 @@
     <string name="scroll_hint">सभी पेज देखने के लिए स्क्रॉल करें</string>
     <string name="back">पीछे</string>
     <string name="page_count">%1$d पृष्ठ</string>
-    </resources>
+
+    <string name="crop_cancel">रद्द करें</string>
+    <string name="crop_save">सहेजें</string>
+    <string name="crop_title">इमेज क्रॉप करें</string>
+    <string name="crop_instructions">क्रॉप करने और परिप्रेक्ष्य समायोजित करने के लिए 4 कोनों को खींचें।</string>
+    <string name="crop_reset">रीसेट करें</string>
+    <string name="crop_saving_title">परिवर्तन लागू किए जा रहे हैं...</string>
+    <string name="crop_saving_message">कृपया थोड़ी देर प्रतीक्षा करें जब तक हम आपकी छवि को प्रोसेस कर रहे हैं।</string>
+</resources>

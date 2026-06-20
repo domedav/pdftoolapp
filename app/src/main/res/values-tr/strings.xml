@@ -31,4 +31,12 @@
     <string name="scroll_hint">Tüm sayfaları görmek için kaydırın</string>
     <string name="back">Geri</string>
     <string name="page_count">%1$d sayfa</string>
+
+    <string name="crop_cancel">İptal</string>
+    <string name="crop_save">Kaydet</string>
+    <string name="crop_title">Görseli Kırp</string>
+    <string name="crop_instructions">Kırpmak ve perspektifi ayarlamak için 4 köşeyi sürükleyin.</string>
+    <string name="crop_reset">Sıfırla</string>
+    <string name="crop_saving_title">Değişiklikler uygulanıyor...</string>
+    <string name="crop_saving_message">Lütfen resminiz işlenirken biraz bekleyin.</string>
 </resources>

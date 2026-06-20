@@ -24,6 +24,7 @@ object AppIcons {
     @Composable fun OpenInNew(): ImageVector = getVectorResource(R.drawable.ic_open_in_new)
     @Composable fun PhotoLibrary(): ImageVector = getVectorResource(R.drawable.ic_photo_library)
     @Composable fun PictureAsPdf(): ImageVector = getVectorResource(R.drawable.ic_picture_as_pdf)
+    @Composable fun Refresh(): ImageVector = getVectorResource(R.drawable.ic_refresh)
     @Composable fun Save(): ImageVector = getVectorResource(R.drawable.ic_save)
     @Composable fun Share(): ImageVector = getVectorResource(R.drawable.ic_share)
 }

@@ -31,4 +31,12 @@
     <string name="scroll_hint">Scrollen, um alle Seiten zu sehen</string>
     <string name="back">Zurück</string>
     <string name="page_count">%1$d Seiten</string>
+
+    <string name="crop_cancel">Abbrechen</string>
+    <string name="crop_save">Speichern</string>
+    <string name="crop_title">Bild zuschneiden</string>
+    <string name="crop_instructions">Ziehen Sie die 4 Ecken, um das Bild zuzuschneiden und die Perspektive anzupassen.</string>
+    <string name="crop_reset">Zurücksetzen</string>
+    <string name="crop_saving_title">Änderungen werden angewendet...</string>
+    <string name="crop_saving_message">Bitte warten Sie einen Moment, während wir Ihr Bild verarbeiten.</string>
 </resources>

@@ -31,4 +31,12 @@
     <string name="scroll_hint">Gulir untuk melihat semua halaman</string>
     <string name="back">Kembali</string>
     <string name="page_count">%1$d halaman</string>
+
+    <string name="crop_cancel">Batal</string>
+    <string name="crop_save">Simpan</string>
+    <string name="crop_title">Potong Gambar</string>
+    <string name="crop_instructions">Tarik 4 sudut untuk memotong dan menyesuaikan perspektif.</string>
+    <string name="crop_reset">Atur Ulang</string>
+    <string name="crop_saving_title">Menerapkan perubahan...</string>
+    <string name="crop_saving_message">Harap tunggu sebentar sementara kami memproses gambar Anda.</string>
 </resources>

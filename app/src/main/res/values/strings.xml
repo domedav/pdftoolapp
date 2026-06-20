@@ -36,4 +36,12 @@
     <string name="scroll_hint">Scroll to see all pages</string>
     <string name="back">Back</string>
     <string name="page_count">%1$d pages</string>
+
+    <string name="crop_cancel">Cancel</string>
+    <string name="crop_save">Save</string>
+    <string name="crop_title">Crop Image</string>
+    <string name="crop_instructions">Drag the 4 corners to crop and adjust perspective.</string>
+    <string name="crop_reset">Reset</string>
+    <string name="crop_saving_title">Applying changes...</string>
+    <string name="crop_saving_message">Please wait a moment while we process your image.</string>
 </resources>

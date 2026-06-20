@@ -31,4 +31,12 @@
     <string name="scroll_hint">捲動查看所有頁面</string>
     <string name="back">返回</string>
     <string name="page_count">%1$d 頁</string>
+
+    <string name="crop_cancel">取消</string>
+    <string name="crop_save">儲存</string>
+    <string name="crop_title">裁剪圖片</string>
+    <string name="crop_instructions">拖動4個角進行裁剪並調整透視。</string>
+    <string name="crop_reset">重置</string>
+    <string name="crop_saving_title">正在套用變更...</string>
+    <string name="crop_saving_message">我們正在處理您的圖片，請稍候。</string>
 </resources>

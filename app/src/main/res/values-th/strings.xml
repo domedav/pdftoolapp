@@ -31,4 +31,12 @@
     <string name="scroll_hint">เลื่อนเพื่อดูทุกหน้า</string>
     <string name="back">กลับ</string>
     <string name="page_count">%1$d หน้า</string>
+
+    <string name="crop_cancel">ยกเลิก</string>
+    <string name="crop_save">บันทึก</string>
+    <string name="crop_title">ตัดรูปภาพ</string>
+    <string name="crop_instructions">ลากทั้ง 4 มุมเพื่อตัดและปรับมุมมอง</string>
+    <string name="crop_reset">รีเซ็ต</string>
+    <string name="crop_saving_title">กำลังใช้การเปลี่ยนแปลง...</string>
+    <string name="crop_saving_message">โปรดรอสักครู่ขณะที่เราประมวลผลรูปภาพของคุณ</string>
 </resources>

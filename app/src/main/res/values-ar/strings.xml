@@ -31,4 +31,12 @@
     <string name="scroll_hint">قم بالتمرير لرؤية جميع الصفحات</string>
     <string name="back">عودة</string>
     <string name="page_count">%1$d صفحة</string>
-    </resources>
+
+    <string name="crop_cancel">إلغاء</string>
+    <string name="crop_save">حفظ</string>
+    <string name="crop_title">قص الصورة</string>
+    <string name="crop_instructions">اسحب الأركان الأربعة للقص وضبط المنظور.</string>
+    <string name="crop_reset">إعادة تعيين</string>
+    <string name="crop_saving_title">جاري تطبيق التغييرات...</string>
+    <string name="crop_saving_message">يرجى الانتظار لحظة بينما نقوم بمعالجة صورتك.</string>
+</resources>

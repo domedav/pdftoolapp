@@ -31,4 +31,12 @@
     <string name="scroll_hint">Прокрутите, чтобы увидеть все страницы</string>
     <string name="back">Назад</string>
     <string name="page_count">%1$d страниц</string>
+
+    <string name="crop_cancel">Отмена</string>
+    <string name="crop_save">Сохранить</string>
+    <string name="crop_title">Обрезка изображения</string>
+    <string name="crop_instructions">Перетащите 4 угла для обрезки и настройки перспективы.</string>
+    <string name="crop_reset">Сбросить</string>
+    <string name="crop_saving_title">Применение изменений...</string>
+    <string name="crop_saving_message">Подождите немного, пока мы обрабатываем ваше изображение.</string>
 </resources>

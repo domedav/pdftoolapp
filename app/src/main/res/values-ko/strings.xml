@@ -31,4 +31,12 @@
     <string name="scroll_hint">모든 페이지를 보려면 스크롤하세요</string>
     <string name="back">뒤로</string>
     <string name="page_count">%1$d 페이지</string>
+
+    <string name="crop_cancel">취소</string>
+    <string name="crop_save">저장</string>
+    <string name="crop_title">이미지 자르기</string>
+    <string name="crop_instructions">4개의 모서리를 드래그하여 자르고 원근감을 조정하세요.</string>
+    <string name="crop_reset">초기화</string>
+    <string name="crop_saving_title">변경사항 적용 중...</string>
+    <string name="crop_saving_message">이미지를 처리하는 동안 잠시 기다려 주세요.</string>
 </resources>

@@ -31,4 +31,12 @@
     <string name="scroll_hint">Прокрутіть, щоб побачити всі сторінки</string>
     <string name="back">Назад</string>
     <string name="page_count">%1$d сторінок</string>
+
+    <string name="crop_cancel">Скасувати</string>
+    <string name="crop_save">Зберегти</string>
+    <string name="crop_title">Обрізати зображення</string>
+    <string name="crop_instructions">Перетягніть 4 кути, щоб обрізати та налаштувати перспективу.</string>
+    <string name="crop_reset">Скинути</string>
+    <string name="crop_saving_title">Застосування змін...</string>
+    <string name="crop_saving_message">Будь ласка, зачекайте хвилинку, поки ми обробляємо ваше зображення.</string>
 </resources>

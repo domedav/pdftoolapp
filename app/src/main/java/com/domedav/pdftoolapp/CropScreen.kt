@@ -1,22 +1,25 @@
 package com.domedav.pdftoolapp
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -31,12 +34,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun CropScreen(
     imageUri: Uri,
+    initialPoints: List<Offset>?,
     onCancel: () -> Unit,
-    onDone: (Uri) -> Unit
+    onDone: (Uri, List<Offset>) -> Unit
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -44,10 +48,15 @@ fun CropScreen(
     var isLoading by remember { mutableStateOf(true) }
     var isCropping by remember { mutableStateOf(false) }
 
+    // Intercept physical back press to safely exit crop page
+    BackHandler(enabled = !isCropping) {
+        onCancel()
+    }
+
     // Normalized points (relative to image bounds): Top-Left, Top-Right, Bottom-Right, Bottom-Left
     var points by remember {
         mutableStateOf(
-            listOf(
+            initialPoints ?: listOf(
                 Offset(0f, 0f),     // Top-Left
                 Offset(1f, 0f),     // Top-Right
                 Offset(1f, 1f),     // Bottom-Right
@@ -88,47 +97,14 @@ fun CropScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "Kép vágása",
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        text = stringResource(R.string.crop_title),
+                        fontWeight = FontWeight.Black,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 },
-                navigationIcon = {
-                    IconButton(onClick = onCancel, enabled = !isCropping) {
-                        Icon(AppIcons.Close(), contentDescription = "Mégse", tint = Color.White)
-                    }
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            if (bitmap != null && !isCropping) {
-                                isCropping = true
-                                scope.launch {
-                                    val cropped = withContext(Dispatchers.IO) {
-                                        ImageCropper.cropPerspective(context, imageUri, points)
-                                    }
-                                    if (cropped != null) {
-                                        onDone(cropped)
-                                    } else {
-                                        isCropping = false
-                                    }
-                                }
-                            }
-                        },
-                        enabled = bitmap != null && !isCropping
-                    ) {
-                        Icon(
-                            AppIcons.Check(),
-                            contentDescription = "Kész",
-                            tint = if (bitmap != null && !isCropping) MaterialTheme.colorScheme.primary else Color.Gray
-                        )
-                    }
-                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color.Black,
-                    titleContentColor = Color.White,
-                    navigationIconContentColor = Color.White,
-                    actionIconContentColor = Color.White
+                    containerColor = Color.Transparent,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         },
@@ -136,45 +112,96 @@ fun CropScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color.Black)
-                    .padding(16.dp)
+                    .padding(24.dp)
                     .navigationBarsPadding(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Húzd a 4 sarkot a vágáshoz és perspektíva javításhoz!",
-                    color = Color.LightGray,
+                    text = stringResource(R.string.crop_instructions),
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-                Button(
-                    onClick = {
-                        points = listOf(
-                            Offset(0f, 0f),
-                            Offset(1f, 0f),
-                            Offset(1f, 1f),
-                            Offset(0f, 1f)
-                        )
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                    enabled = !isCropping
+                Spacer(modifier = Modifier.height(20.dp))
+                
+                // Side-by-side 2 buttons in a unified track, copying SuccessScreen's layout exactly
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(90.dp)
                 ) {
-                    Text("Visszaállítás", color = MaterialTheme.colorScheme.onSecondaryContainer)
+                    Row(
+                        modifier = Modifier
+                            .weight(2f)
+                            .fillMaxHeight()
+                    ) {
+                        ExpressiveActionCard(
+                            modifier = Modifier.weight(1f),
+                            icon = AppIcons.Close(),
+                            label = stringResource(R.string.crop_cancel),
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            shape = RoundedCornerShape(topStart = 28.dp, bottomStart = 28.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+                            onClick = onCancel
+                        )
+                        Spacer(Modifier.width(2.dp))
+                        ExpressiveActionCard(
+                            modifier = Modifier.weight(1f),
+                            icon = AppIcons.Check(),
+                            label = stringResource(R.string.crop_save),
+                            color = MaterialTheme.colorScheme.primaryContainer,
+                            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 28.dp, bottomEnd = 28.dp),
+                            onClick = {
+                                if (bitmap != null && !isCropping) {
+                                    isCropping = true
+                                    scope.launch {
+                                        val cropped = withContext(Dispatchers.IO) {
+                                            ImageCropper.cropPerspective(context, imageUri, points)
+                                        }
+                                        if (cropped != null) {
+                                            onDone(cropped, points)
+                                        } else {
+                                            isCropping = false
+                                        }
+                                    }
+                                }
+                            }
+                        )
+                    }
+                    
+                    // Small floating button for reset, placed inside the row matching the styling
+                    Spacer(Modifier.width(8.dp))
+                    ExpressiveActionCard(
+                        modifier = Modifier.weight(1f),
+                        icon = AppIcons.Refresh(),
+                        label = stringResource(R.string.crop_reset),
+                        color = MaterialTheme.colorScheme.tertiaryContainer,
+                        shape = MaterialTheme.shapes.extraLarge,
+                        onClick = {
+                            if (!isCropping) {
+                                points = listOf(
+                                    Offset(0f, 0f),
+                                    Offset(1f, 0f),
+                                    Offset(1f, 1f),
+                                    Offset(0f, 1f)
+                                )
+                            }
+                        }
+                    )
                 }
             }
         },
-        containerColor = Color.Black
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(Color.Black),
+                .background(MaterialTheme.colorScheme.background),
             contentAlignment = Alignment.Center
         ) {
             if (isLoading || bitmap == null) {
-                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                LoadingIndicator(modifier = Modifier.size(64.dp))
             } else {
                 val bmp = bitmap!!
                 BoxWithConstraints(
@@ -203,48 +230,76 @@ fun CropScreen(
                     val drawTop = (containerHeightPx - drawHeight) / 2f
 
                     var draggedIndex by remember { mutableStateOf(-1) }
-                    val screenPoints = points.map { Offset(drawLeft + it.x * drawWidth, drawTop + it.y * drawHeight) }
-                    val handleRadiusPx = with(density) { 24.dp.toPx() }
+                    val handleRadiusPx = with(density) { 28.dp.toPx() }
+
+                    // Define colors from current M3 theme
+                    val primaryColor = MaterialTheme.colorScheme.primary
+                    val tertiaryColor = MaterialTheme.colorScheme.tertiary
+                    val surfaceColor = MaterialTheme.colorScheme.surface
 
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .pointerInput(screenPoints) {
-                                detectDragGestures(
-                                    onStart = { offset ->
-                                        val dists = screenPoints.map { (it - offset).getDistance() }
-                                        val minDist = dists.minOrNull() ?: Float.MAX_VALUE
-                                        val minIndex = dists.indexOf(minDist)
-                                        if (minDist < handleRadiusPx * 1.5f) {
-                                            draggedIndex = minIndex
-                                        } else {
-                                            draggedIndex = -1
-                                        }
-                                    },
-                                    onDrag = { change, dragAmount ->
-                                        if (draggedIndex != -1) {
-                                            change.consume()
-                                            val currentScreenPos = screenPoints[draggedIndex] + dragAmount
-                                            // Clamp drag positions strictly inside the image bounds
-                                            val clampedX = currentScreenPos.x.coerceIn(drawLeft, drawLeft + drawWidth)
-                                            val clampedY = currentScreenPos.y.coerceIn(drawTop, drawTop + drawHeight)
-                                            
-                                            val normX = (clampedX - drawLeft) / drawWidth
-                                            val normY = (clampedY - drawTop) / drawHeight
-                                            
-                                            points = points.toMutableList().apply {
-                                                this[draggedIndex] = Offset(normX, normY)
+                            .pointerInput(imageUri) {
+                                // PointerInput key is stable (imageUri), so it does NOT restart during active drag.
+                                // Inside, we read and map the screen points reactively from the 'points' state.
+                                awaitEachGesture {
+                                    val down = awaitFirstDown()
+                                    val currentScreenPoints = points.map { Offset(drawLeft + it.x * drawWidth, drawTop + it.y * drawHeight) }
+                                    val dists = currentScreenPoints.map { (it - down.position).getDistance() }
+                                    val minDist = dists.minOrNull() ?: Float.MAX_VALUE
+                                    val minIndex = dists.indexOf(minDist)
+                                    val hitBoxPx = handleRadiusPx * 2.0f
+                                    
+                                    if (minDist < hitBoxPx) {
+                                        draggedIndex = minIndex
+                                        down.consume()
+                                    } else {
+                                        draggedIndex = -1
+                                    }
+
+                                    if (draggedIndex != -1) {
+                                        var isDragging = true
+                                        var previousPos = down.position
+                                        while (isDragging) {
+                                            val event = awaitPointerEvent()
+                                            val dragChange = event.changes.firstOrNull { it.id == down.id }
+                                            if (dragChange != null) {
+                                                if (dragChange.pressed) {
+                                                    val pos = dragChange.position
+                                                    val delta = pos - previousPos
+                                                    previousPos = pos
+                                                    dragChange.consume()
+                                                    
+                                                    val currentPt = points[draggedIndex]
+                                                    val currentScreenX = drawLeft + currentPt.x * drawWidth
+                                                    val currentScreenY = drawTop + currentPt.y * drawHeight
+                                                    val newScreenPos = Offset(currentScreenX, currentScreenY) + delta
+
+                                                    val clampedX = newScreenPos.x.coerceIn(drawLeft, drawLeft + drawWidth)
+                                                    val clampedY = newScreenPos.y.coerceIn(drawTop, drawTop + drawHeight)
+                                                    val normX = (clampedX - drawLeft) / drawWidth
+                                                    val normY = (clampedY - drawTop) / drawHeight
+                                                    points = points.toMutableList().apply {
+                                                        this[draggedIndex] = Offset(normX, normY)
+                                                    }
+                                                } else {
+                                                    isDragging = false
+                                                }
+                                            } else {
+                                                isDragging = false
                                             }
                                         }
-                                    },
-                                    onEnd = { draggedIndex = -1 },
-                                    onCancel = { draggedIndex = -1 }
-                                )
+                                        draggedIndex = -1
+                                    }
+                                }
                             }
                     ) {
                         Canvas(modifier = Modifier.fillMaxSize()) {
+                            val screenPoints = points.map { Offset(drawLeft + it.x * drawWidth, drawTop + it.y * drawHeight) }
+
                             // 1. Draw Image centered
-                            drawImageRect(
+                            drawImage(
                                 image = bmp.asImageBitmap(),
                                 dstOffset = IntOffset(drawLeft.toInt(), drawTop.toInt()),
                                 dstSize = IntSize(drawWidth.toInt(), drawHeight.toInt())
@@ -262,7 +317,7 @@ fun CropScreen(
                             // 3. Draw semi-transparent dimming outside the crop path
                             clipPath(path, clipOp = ClipOp.Difference) {
                                 drawRect(
-                                    color = Color.Black.copy(alpha = 0.6f),
+                                    color = Color.Black.copy(alpha = 0.5f),
                                     topLeft = Offset(drawLeft, drawTop),
                                     size = Size(drawWidth, drawHeight)
                                 )
@@ -271,23 +326,31 @@ fun CropScreen(
                             // 4. Draw quadrilateral connection lines
                             drawPath(
                                 path = path,
-                                color = Color(0xFF81D4FA), // Nice bright accent color
+                                color = primaryColor,
                                 style = Stroke(width = 3.dp.toPx(), join = StrokeJoin.Round)
                             )
 
-                            // 5. Draw interactive corner handles
+                            // 5. Draw interactive corner handles matching M3 styling
                             screenPoints.forEachIndexed { index, point ->
                                 val isDragging = index == draggedIndex
                                 val radius = if (isDragging) 18.dp.toPx() else 14.dp.toPx()
-                                val innerRadius = if (isDragging) 9.dp.toPx() else 7.dp.toPx()
+                                val innerRadius = if (isDragging) 8.dp.toPx() else 6.dp.toPx()
 
+                                // Outer white outline ring for high-contrast on photos
                                 drawCircle(
                                     color = Color.White,
+                                    radius = radius + 2.dp.toPx(),
+                                    center = point
+                                )
+                                // Main handle filled ring (primary color, tertiary when dragged)
+                                drawCircle(
+                                    color = if (isDragging) tertiaryColor else primaryColor,
                                     radius = radius,
                                     center = point
                                 )
+                                // Center core circle (white/surface container color)
                                 drawCircle(
-                                    color = Color(0xFF0288D1), // Bright blue
+                                    color = surfaceColor,
                                     radius = innerRadius,
                                     center = point
                                 )
@@ -295,13 +358,20 @@ fun CropScreen(
                         }
 
                         if (isCropping) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .background(Color.Black.copy(alpha = 0.5f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                            androidx.compose.ui.window.Dialog(onDismissRequest = {}, properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)) {
+                                Surface(
+                                    modifier = Modifier.fillMaxSize().padding(horizontal = 24.dp, vertical = 48.dp),
+                                    shape = MaterialTheme.shapes.extraLarge,
+                                    color = MaterialTheme.colorScheme.surfaceContainerHigh
+                                ) {
+                                    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                                        LoadingIndicator(modifier = Modifier.size(80.dp))
+                                        Spacer(Modifier.height(32.dp))
+                                        Text(stringResource(R.string.crop_saving_title), style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center) 
+                                        Spacer(Modifier.height(16.dp))
+                                        Text(stringResource(R.string.crop_saving_message), style = MaterialTheme.typography.bodyLarge, textAlign = TextAlign.Center)
+                                    }
+                                }
                             }
                         }
                     }
