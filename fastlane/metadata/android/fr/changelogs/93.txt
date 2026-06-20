@@ -1,0 +1,5 @@
+Première version open-source sur GitHub et F-Droid.
+- Axé sur la confidentialité, fonctionnement hors ligne en priorité.
+- Réorganisez les images par glisser-déposer.
+- Plusieurs paramètres de qualité.
+- Expérience sans publicité.

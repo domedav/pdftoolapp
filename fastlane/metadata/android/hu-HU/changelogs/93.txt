@@ -1,0 +1,5 @@
+Első nyílt forráskódú kiadás a GitHubon és az F-Droidon.
+- Adatvédelem-központú, offline-első működés.
+- Képek átrendezése fogd és vidd módszerrel.
+- Többféle minőségi beállítás.
+- Reklámmentes élmény.

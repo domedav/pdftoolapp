@@ -1,0 +1,5 @@
+Eerste open-source release op GitHub en F-Droid.
+- Privacygericht, offline-eerst werking.
+- Afbeeldingen herordenen met slepen en neerzetten.
+- Meerdere kwaliteitsinstellingen.
+- Advertentievrije ervaring.
