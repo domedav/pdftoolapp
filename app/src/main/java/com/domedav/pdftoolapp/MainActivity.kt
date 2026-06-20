@@ -628,11 +628,6 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
         //if (!isRestored) sharePdf(context, pdfFile)
     }
 
-    LaunchedEffect(isExpanded) {
-        if (!isExpanded && pdfPages.isNotEmpty()) {
-            previewListState.scrollToItem(currentVisiblePageIndex)
-        }
-    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         
