@@ -701,7 +701,11 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                 tonalElevation = 10.dp,
                 shadowElevation = 10.dp
             ) {
-                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+                // Dynamic alignment: center perfectly if only 1 page (no scroll), pin to top if multiple pages (preserve scroll physics)
+                val boxAlignment = if (pdfPages.size == 1) Alignment.Center else Alignment.TopCenter
+                val origin = if (pdfPages.size == 1) TransformOrigin(0.5f, 0.5f) else TransformOrigin(0.5f, 0f)
+
+                Box(Modifier.fillMaxSize(), contentAlignment = boxAlignment) {
                     if (pdfPages.isNotEmpty()) {
                         // UNIFORM scale to completely preserve aspect ratio!
                         val scale = animatedWidth / expandedWidth
@@ -712,7 +716,7 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                 .graphicsLayer {
                                     this.scaleX = scale
                                     this.scaleY = scale
-                                    this.transformOrigin = TransformOrigin(0.5f, 0f) // Scale from the top
+                                    this.transformOrigin = origin
                                 }
                         ) {
                             Column(
@@ -739,7 +743,7 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                     state = previewListState,
                                     modifier = Modifier.weight(1f).fillMaxWidth(),
                                     contentPadding = PaddingValues(16.dp),
-                                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                                    verticalArrangement = if (pdfPages.size == 1) Arrangement.Center else Arrangement.spacedBy(16.dp),
                                     userScrollEnabled = isExpanded
                                 ) {
                                     items(pdfPages) { bitmap ->
@@ -756,26 +760,22 @@ fun SuccessScreen(pdfFile: File, isRestored: Boolean, onBack: () -> Unit, canCli
                                     item { Spacer(Modifier.height(32.dp)) }
                                 }
                             }
-                            
-                            // Collapsed preview hint overlay
-                            if (expandProgress < 1f) {
-                                Surface(
-                                    // Pinned slightly higher so it's always visible within the cropped height
-                                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = expandedHeight * 0.4f).graphicsLayer { 
-                                        alpha = 1f - expandProgress 
-                                        // Reverse scale so the button doesn't shrink!
-                                        this.scaleX = 1f / scale
-                                        this.scaleY = 1f / scale
-                                    },
-                                    shape = CircleShape,
-                                    color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
-                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                                ) {
-                                    Row(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                                        Icon(AppIcons.OpenInNew(), null, modifier = Modifier.size(20.dp))
-                                        Spacer(Modifier.width(8.dp))
-                                        Text(stringResource(R.string.preview_hint), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-                                    }
+                        }
+                        
+                        // Collapsed preview hint overlay moved OUTSIDE so it natively anchors to the bottom!
+                        if (expandProgress < 1f) {
+                            Surface(
+                                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 24.dp).graphicsLayer { 
+                                    alpha = 1f - expandProgress 
+                                },
+                                shape = CircleShape,
+                                color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.9f),
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                            ) {
+                                Row(Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(AppIcons.OpenInNew(), null, modifier = Modifier.size(20.dp))
+                                    Spacer(Modifier.width(8.dp))
+                                    Text(stringResource(R.string.preview_hint), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                                 }
                             }
                         }
