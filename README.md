@@ -32,6 +32,16 @@ Image to PDF Maker is an open-source, privacy-first application designed to conv
   <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6_feature.png" width="30%" />
 </p>
 
+## Download
+
+Get it on the **Google Play Store**:
+
+<a href="https://play.google.com/store/apps/details?id=com.domedav.pdftoolapp">
+  <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200" />
+</a>
+
+Or download the APK directly from the [GitHub Releases](https://github.com/domedav/pdftoolapp/releases).
+
 ## Build Instructions
 
 This project uses Gradle. You can build the APK using the following command:

@@ -32,7 +32,14 @@ Image to PDF Maker is a fully open-source, privacy-first application that lets y
 </p>
 
 ## Download
-Available soon on **F-Droid**!
+
+Get it on the **Google Play Store**:
+
+<a href="https://play.google.com/store/apps/details?id=com.domedav.pdftoolapp">
+  <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200" />
+</a>
+
+Or download the APK directly from the [GitHub Releases](https://github.com/{{ site.github.owner_name }}/{{ site.github.repository_name }}/releases).
 
 ## Open Source
 This project is open-source. Feel free to explore the code, report bugs, or contribute on [GitHub](https://github.com/{{ site.github.owner_name }}/{{ site.github.repository_name }}).
