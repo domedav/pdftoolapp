@@ -105,6 +105,11 @@ android {
     }
 }
 
+configurations.all {
+    exclude(group = "io.opencensus", module = "opencensus-api")
+    exclude(group = "io.opencensus", module = "opencensus-proto")
+}
+
 dependencies {
     // --- CORE ANDROID & COMPOSE ---
     implementation(libs.androidx.core.ktx)
